@@ -2,5 +2,6 @@
 <settings>
     <setting id="log_location" type="folder" label="30000" default="" />
     <setting id="temp_scale" type="enum" label="30002" values="Celcius|Farenheit" default="0" />
+    <setting id="update_delay" type ="text" label="30003" value="" default="" />
     <setting id="advanced_log" type="bool" label="30001" default="false" />
 </settings>

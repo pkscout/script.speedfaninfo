@@ -1,6 +1,6 @@
-import os, sys, datetime
-import xbmcaddon
-import xbmc, xbmcgui
+import os, sys, time, datetime
+import xbmcaddon, xbmc, xbmcgui
+from threading import Thread
 
 ### get addon info and set globals
 __addon__        = xbmcaddon.Addon()
@@ -13,6 +13,11 @@ __addondir__     = xbmc.translatePath( __addon__.getAddonInfo('profile') )
 __icon__         = __addon__.getAddonInfo('icon')
 __localize__     = __addon__.getLocalizedString
 __log_preamble__ = '[speedfaninfo] '
+__windowopen__   = True
+
+#capture a couple of actions to close the window
+ACTION_PREVIOUS_MENU = 10
+ACTION_BACK = 92
 
 #this is the class for creating and populating the window 
 class SpeedFanInfoWindow(xbmcgui.WindowXMLDialog): 
@@ -23,6 +28,12 @@ class SpeedFanInfoWindow(xbmcgui.WindowXMLDialog):
     def onInit(self): self.populateFromLog()
         #tell the object to go read the log file, parse it, and put it into listitems for the XML
 
+    def onAction(self, action):
+        if(action == ACTION_PREVIOUS_MENU or action == ACTION_BACK):
+            global __windowopen__
+            __windowopen__ = False
+            self.close()
+            
     def populateFromLog(self):        
         #get all this stuff into list info items for the window
         #create a new log parser obeject
@@ -188,10 +199,25 @@ class LogParser():
         #log some additional data if advanced logging is one
         self.logDatatoXBMC (temps, speeds, voltages, percents)
         #log that we're done parsing the file
-        xbmc.log(__log_preamble__ + 'ended parsing log, displaying results');
+        xbmc.log(__log_preamble__ + 'ended parsing log, displaying results')
         return temps, speeds, voltages, percents
+
+
+def updateWindow(name, w):
+    while __windowopen__:
+        for i in range(int(__addon__.getSetting('update_delay'))):
+            if __windowopen__:
+                time.sleep(1)
+            else:
+            	break
+        if __windowopen__:
+            w.populateFromLog()
 
 #run the script
 w = SpeedFanInfoWindow("speedfaninfo-main.xml", __addonpath__, "Default")
+t1 = Thread(target=updateWindow,args=("thread 1",w))
+t1.setDaemon(True)
+t1.start()
 w.doModal()
+del t1
 del w

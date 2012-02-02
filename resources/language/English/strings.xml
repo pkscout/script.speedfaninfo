@@ -4,6 +4,7 @@
     <string id="30000">SpeedFan log folder</string>
     <string id="30001">Enable Advanced Logging</string>
     <string id="30002">Log Temperature Scale</string>
+    <string id="30003">Display Update Interval (in seconds)</string>
 
 	<!-- Other text display strings -->
 
