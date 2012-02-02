@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<settings>
+    <setting id="log_location" type="folder" label="30000" default="" />
+    <setting id="temp_scale" type="enum" label="30002" values="Celcius|Farenheit" default="0" />
+    <setting id="advanced_log" type="bool" label="30001" default="false" />
+</settings>

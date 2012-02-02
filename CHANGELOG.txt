@@ -1,0 +1,7 @@
+CHANGELOG
+
+0.2.0
+Fixed some code issues that caused the script not to work on Windows (that's what you get when you develop on a Mac and deploy to Windows)
+
+0.1.0
+Initial internal release
