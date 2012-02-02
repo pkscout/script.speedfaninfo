@@ -1,6 +1,8 @@
 import os, sys, time, datetime
 import xbmcaddon, xbmc, xbmcgui
 from threading import Thread
+#this is a wrapper for the xbmc.log that adds logic for verbose or standard logging
+import xlogger
 
 ### get addon info and set globals
 __addon__        = xbmcaddon.Addon()
@@ -12,68 +14,101 @@ __addonpath__    = __addon__.getAddonInfo('path')
 __addondir__     = xbmc.translatePath( __addon__.getAddonInfo('profile') )
 __icon__         = __addon__.getAddonInfo('icon')
 __localize__     = __addon__.getLocalizedString
-__log_preamble__ = '[speedfaninfo] '
+
+#global used to tell the worker thread the status of the window
 __windowopen__   = True
 
 #capture a couple of actions to close the window
 ACTION_PREVIOUS_MENU = 10
 ACTION_BACK = 92
 
+#create a global logger object
+lw = xlogger.inst
+
 #this is the class for creating and populating the window 
 class SpeedFanInfoWindow(xbmcgui.WindowXMLDialog): 
     
-    def __init__(self, *args, **kwargs): pass
+    def __init__(self, *args, **kwargs):
         # and define it as self
+        lw.log('running __init__ from SpeedFanInfoWindwo class', 'verbose')
 
-    def onInit(self): self.populateFromLog()
+    def onInit(self):
         #tell the object to go read the log file, parse it, and put it into listitems for the XML
+        lw.log('running inInit from SpeedFanInfoWindwo class', 'verbose')
+        self.populateFromLog()
 
     def onAction(self, action):
+        #captures user input and acts as needed
+        lw.log('running onAction from SpeedFanInfoWindwo class', 'verbose')
         if(action == ACTION_PREVIOUS_MENU or action == ACTION_BACK):
+            #if the user hits back or exit, close the window
+            lw.log('user initiated previous menu or back', 'verbose')
             global __windowopen__
+            #set this to false so the worker thread knows the window is being closed
             __windowopen__ = False
+            lw.log('set windowopen to false', 'verbose')
+            #tell the window to close
+            lw.log('tell the window to close', 'verbose')
             self.close()
             
     def populateFromLog(self):        
         #get all this stuff into list info items for the window
-        #create a new log parser obeject
+        lw.log('running populateFromLog from SpeedFanInfoWindwo class', 'verbose')
+        #create new log parser and logger obejects
+        lw.log('create new LogParser object', 'verbose')
         lp = LogParser()
         #get the information from the SpeedFan Log
+        lw.log('ask the LogParser to get temps, speeds, voltages, and percents', 'verbose')
         temps, speeds, voltages, percents = lp.parseLog()
-        xbmc.log(__log_preamble__ + 'starting to convert output for window')
-        #show some additional information if advanced logging is turned on
-        lp.logDatatoXBMC (temps, speeds, voltages, percents)
+        lw.log('starting to convert output for window', 'verbose')
+        #add a fancy degree symbol to the temperatures
+        lw.log('add fancy degree symbol to temperatures', 'verbose')
+        for i in range(len(temps)):
+            temps[i][1] = temps[i][1][:-1] + unichr(176).encode("latin-1") + temps[i][1][-1:]
         #now parse all the data and get it into ListIems for display on the page
+        lw.log('reset the window to prep it for data', 'verbose')
         self.getControl(120).reset()
         #this allows for a line space *after* the first one so the page looks pretty
-        firstline_shown = 'false'
+        firstline_shown = False
+        #put in all the temperature information
+        lw.log('put in all the temperature information', 'verbose')
         if(len(temps) > 0):
             self.populateList('Temperature Information', temps, firstline_shown)
-            firstline_shown = 'true'
+            firstline_shown = True
+        #put in all the speed information (including percentage)
+        lw.log('put in all the speed information (including percentages)', 'verbose')
         if(len(speeds) > 0):
             #please don't ask why this is so complicated, the simple way caused a fatal error on Windows
             if(len(speeds) == len(percents)):
                 en_speeds = []
+                #add the percentage information to the end of the speed
+                lw.log('adding the percentages to the end of the speeds', 'verbose')
                 for i in range(len(speeds)):
                     en_speeds.append((speeds[i][0], speeds [i][1] + ' (' + percents[i][1] + ')'))
             else:
                 en_speeds = speeds
             self.populateList('Fan Speed Information', en_speeds, firstline_shown)
-            firstline_shown = 'true'
+            firstline_shown = True
+        #put in all the voltage information
+        lw.log('put in all the voltage information', 'verbose')
         if(len(voltages) > 0):
             self.populateList('Voltage Information', voltages, firstline_shown)
         #log that we're done and ready to show the page
-        xbmc.log(__log_preamble__ + 'completed putting information into lists, displaying window')
+        lw.log('completed putting information into lists, displaying window', 'standard')
             
     def populateList(self, title, things, titlespace):
         #this takes an arbitrating list of readings and gets them into the ListItems
-        if(titlespace == 'true'):
+        lw.log('running populateList from SpeedFanInfoWindwo class', 'verbose')        
+        #create the list item for the title of the section
+        lw.log('create the list item for the title of the section', 'verbose')        
+        if(titlespace):
             item = xbmcgui.ListItem()
             self.getControl(120).addItem(item) #this adds an empty line
         item = xbmcgui.ListItem(label=title)
         item.setProperty('istitle','true')
         self.getControl(120).addItem(item)
-        #we want two columns to make good use of the page
+        #now add all the data (we want two columns to make good use of the page)
+        lw.log('add all the data to the two column format', 'verbose')        
         nextside = 'left'
         for  onething in things:
             if(nextside == 'left'):
@@ -92,25 +127,13 @@ class SpeedFanInfoWindow(xbmcgui.WindowXMLDialog):
             self.getControl(120).addItem(item)
 
 class LogParser():
-    def __init__(self): pass
+    def __init__(self):
+        lw.log('running __init__ from LogParser class', 'verbose')        
         # and define it as self
-
-    def logDatatoXBMC (self, temps, speeds, voltages, percents):
-        #if advanced logging is set in the plugin, this logs extra data to the XBMC log
-        #mostly for troubleshooting
-        if(__addon__.getSetting('advanced_log') == "true"):
-            for onetemp in temps:
-                xbmc.log(__log_preamble__ + ' temp: ' + onetemp[0] + ' value: ' + onetemp[1])
-            for onespeed in speeds:
-                xbmc.log(__log_preamble__ + ' speed: ' + onespeed[0] + ' value: ' + onespeed[1])
-            for onevoltage in voltages:
-                xbmc.log(__log_preamble__ + ' voltage: ' + onevoltage[0] + ' value: ' + onevoltage[1])
-            for onepercent in percents:
-                xbmc.log(__log_preamble__ + ' percent: ' + onepercent[0] + ' value: ' + onepercent[1])
-        return
 
     def readLogFile(self):
         #try and open the log file
+        lw.log('running readLogFIle from LogParser class', 'verbose')        
         #SpeedFan rolls the log every day, so we have to look for the log file based on the date
         #SpeedFan also does numerics if it has to roll the log during the day
         #but in my testing it only uses the numeric log for a couple of minutes and then goes
@@ -118,13 +141,13 @@ class LogParser():
         log_file_date = datetime.date(2011,1,29).today().isoformat().replace('-','')
         log_file_raw = __addon__.getSetting('log_location') + 'SFLog' + log_file_date
         log_file = log_file_raw + '.csv'
-        xbmc.log(__log_preamble__ + 'trying to open logfile ' + log_file)
+        lw.log('trying to open logfile ' + log_file, 'verbose')
         try:
             f = open(log_file, 'rb')
         except IOError:
-            xbmc.log(__log_preamble__ + 'no log file found')
+            lw.log('no log file found', 'standard')
             return
-        xbmc.log(__log_preamble__ + 'opened logfile ' + log_file)                
+        lw.log('opened logfile ' + log_file, 'verbose')
         #get the first and last line of the log file
         #the first line has the header information, and the last line has the last log entry
         #Speedfan updates the log every three seconds, so I didn't want to read the whole log
@@ -152,25 +175,24 @@ class LogParser():
             offset += read_size
         f.close()
         #some additional information for advanced logging
-        if(__addon__.getSetting('advanced_log') == 'true'):
-            xbmc.log(__log_preamble__ + 'first line: ' + first)
-            xbmc.log(__log_preamble__ + 'last line: ' + last)
+        lw.log('first line: ' + first, 'verbose')
+        lw.log('last line: ' + last, 'verbose')
         return first, last
 
     def parseLog(self):
-        xbmc.log(__log_preamble__ + 'started parsing log');
-        #I can't log something with unicode, so if I want to log I don't set the degree symbol
-        if(__addon__.getSetting('advanced_log') == 'true'):
-            degree_symbol = ''
-        else:
-            degree_symbol = unichr(176).encode("latin-1")
+        #parse the log for information, see readme for how to setup SpeedFan output so that the script
+        lw.log('running parseLog from LogParser class', 'verbose')        
+        #can parse out the useful information
+        lw.log('started parsing log','verbose');
         if(__addon__.getSetting('temp_scale') == '0' or __addon__.getSetting('temp_scale') == '00'):
             temp_scale = 'C'
         else:
             temp_scale = 'F'
         #read the log file
+        lw.log('read the log file','verbose');
         first, last = self.readLogFile()
         #pair up the heading with the value
+        lw.log('pair up the heading with the value','verbose');
         temps = []
         speeds = []
         voltages = []
@@ -186,38 +208,63 @@ class LogParser():
                 s_value = str(int(round(float(s_value.rstrip()))))
             if(item_type == "temp"):
                 #put this info in the temperature array
-                temps.append([item_text + ':', s_value + degree_symbol + temp_scale])
+                lw.log('put the information in the temperature array','verbose');
+                temps.append([item_text + ':', s_value + temp_scale])
             elif(item_type == "speed"):
                 #put this info in the speed array
+                lw.log('put the information in the speed array','verbose');
                 speeds.append([item_text + ':', s_value + 'rpm'])
             elif(item_type == "voltage"):
                 #put this info in the voltage array
+                lw.log('put the information in the voltage array','verbose');
                 voltages.append([item_text + ':', s_value + 'v'])
             elif(item_type == "percent"):
                 #put this info to the percent array
+                lw.log('put the information in the percent array','verbose');
                 percents.append([item_text, s_value + '%'])
         #log some additional data if advanced logging is one
-        self.logDatatoXBMC (temps, speeds, voltages, percents)
+        lw.log(temps, speeds, voltages, percents, 'verbose')
         #log that we're done parsing the file
-        xbmc.log(__log_preamble__ + 'ended parsing log, displaying results')
+        lw.log('ended parsing log, displaying results', 'standard')
         return temps, speeds, voltages, percents
-
-
+                
 def updateWindow(name, w):
+    #this is the worker thread that updates the window information every w seconds
+    #this strange looping exists because I didn't want to sleep the thread for very long
+    #as time.sleep() keeps user input from being acted upon
+    lw.log('running the worker thread from inside the def','verbose');
     while __windowopen__:
+        #start counting up to the delay set in the preference and sleep for one second
+        lw.log('start counting the delay set in the preference','verbose');
         for i in range(int(__addon__.getSetting('update_delay'))):
+            #as long as the window is open, keep sleeping
             if __windowopen__:
+                lw.log('window is still open, sleep 1 second','verbose');
                 time.sleep(1)
+            #otherwise drop out of the loop so we can exit the thread
             else:
             	break
+        #as long as the window is open grab new data and refresh the window
         if __windowopen__:
+            lw.log('window is still open, updating the window with new data','verbose');
             w.populateFromLog()
 
 #run the script
+#create a new object to get all the work done
+lw.log('attempting to create main script object', 'verbose')
 w = SpeedFanInfoWindow("speedfaninfo-main.xml", __addonpath__, "Default")
+lw.log('main script object created', 'attempting to create worker thread' 'verbose')
+#create and start a separate thread for the looping process that updates the window
 t1 = Thread(target=updateWindow,args=("thread 1",w))
 t1.setDaemon(True)
+lw.log('worker thread created', 'attempting to start worker thread' 'verbose')
 t1.start()
+lw.log('worker thread started', 'request window open via doModal', 'verbose')
+#create and open the window
 w.doModal()
+#just some cleanup
+lw.log('attempting to delete main object', 'attempting to delete worker thread', 'verbose')
 del t1
 del w
+lw.log('main object deleted', 'worker thread deleted', 'exiting script', 'verbose')
+del lw
