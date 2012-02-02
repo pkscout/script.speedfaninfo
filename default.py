@@ -22,24 +22,25 @@ __windowopen__   = True
 ACTION_PREVIOUS_MENU = 10
 ACTION_BACK = 92
 
-#create a global logger object
+#create a global logger object and set the preamble
 lw = xlogger.inst
+lw.setPreamble ('[speedfaninfo]')
 
 #this is the class for creating and populating the window 
 class SpeedFanInfoWindow(xbmcgui.WindowXMLDialog): 
     
     def __init__(self, *args, **kwargs):
         # and define it as self
-        lw.log('running __init__ from SpeedFanInfoWindwo class', 'verbose')
+        lw.log('running __init__ from SpeedFanInfoWindow class', 'verbose')
 
     def onInit(self):
         #tell the object to go read the log file, parse it, and put it into listitems for the XML
-        lw.log('running inInit from SpeedFanInfoWindwo class', 'verbose')
+        lw.log('running inInit from SpeedFanInfoWindow class', 'verbose')
         self.populateFromLog()
 
     def onAction(self, action):
         #captures user input and acts as needed
-        lw.log('running onAction from SpeedFanInfoWindwo class', 'verbose')
+        lw.log('running onAction from SpeedFanInfoWindow class', 'verbose')
         if(action == ACTION_PREVIOUS_MENU or action == ACTION_BACK):
             #if the user hits back or exit, close the window
             lw.log('user initiated previous menu or back', 'verbose')
@@ -53,7 +54,7 @@ class SpeedFanInfoWindow(xbmcgui.WindowXMLDialog):
             
     def populateFromLog(self):        
         #get all this stuff into list info items for the window
-        lw.log('running populateFromLog from SpeedFanInfoWindwo class', 'verbose')
+        lw.log('running populateFromLog from SpeedFanInfoWindow class', 'verbose')
         #create new log parser and logger obejects
         lw.log('create new LogParser object', 'verbose')
         lp = LogParser()
@@ -73,7 +74,7 @@ class SpeedFanInfoWindow(xbmcgui.WindowXMLDialog):
         #put in all the temperature information
         lw.log('put in all the temperature information', 'verbose')
         if(len(temps) > 0):
-            self.populateList('Temperature Information', temps, firstline_shown)
+            self.populateList(__localize__(30100), temps, firstline_shown)
             firstline_shown = True
         #put in all the speed information (including percentage)
         lw.log('put in all the speed information (including percentages)', 'verbose')
@@ -87,18 +88,18 @@ class SpeedFanInfoWindow(xbmcgui.WindowXMLDialog):
                     en_speeds.append((speeds[i][0], speeds [i][1] + ' (' + percents[i][1] + ')'))
             else:
                 en_speeds = speeds
-            self.populateList('Fan Speed Information', en_speeds, firstline_shown)
+            self.populateList(__localize__(30101), en_speeds, firstline_shown)
             firstline_shown = True
         #put in all the voltage information
         lw.log('put in all the voltage information', 'verbose')
         if(len(voltages) > 0):
-            self.populateList('Voltage Information', voltages, firstline_shown)
+            self.populateList(__localize__(30102), voltages, firstline_shown)
         #log that we're done and ready to show the page
         lw.log('completed putting information into lists, displaying window', 'standard')
             
     def populateList(self, title, things, titlespace):
         #this takes an arbitrating list of readings and gets them into the ListItems
-        lw.log('running populateList from SpeedFanInfoWindwo class', 'verbose')        
+        lw.log('running populateList from SpeedFanInfoWindow class', 'verbose')        
         #create the list item for the title of the section
         lw.log('create the list item for the title of the section', 'verbose')        
         if(titlespace):
