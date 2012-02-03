@@ -1,4 +1,8 @@
-0.5.0  
+0.5.1  03/03/2012
+-Fixed issue with voltage headings not displaying correctly.  Required a change in the way you format the SpeedFan log, but since nobody is using it but me, it doesn't matter.
+-Fixed the way the setting.xml passes the temperature scale to default.py so that the code is a little easier to read.
+
+0.5.0  02/02/2012
 -Fixes to logging engine.
 -Updated display XML to be skin independent (mostly having to do with font settings)
 -Moved all text strings into language file so that the plugin can be localized
