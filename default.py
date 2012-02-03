@@ -185,7 +185,7 @@ class LogParser():
         lw.log('running parseLog from LogParser class', 'verbose')        
         #can parse out the useful information
         lw.log('started parsing log','verbose');
-        if(__addon__.getSetting('temp_scale') == '0' or __addon__.getSetting('temp_scale') == '00'):
+        if(__addon__.getSetting('temp_scale') == 'Celcius'):
             temp_scale = 'C'
         else:
             temp_scale = 'F'
@@ -200,7 +200,7 @@ class LogParser():
         percents = []
         for s_item, s_value in map(None, first.split('\t'), last.split('\t')):
             item_type = s_item.split('.')[-1].rstrip().lower()
-            item_text = os.path.splitext(s_item)[0].rstrip().replace('.', ' ')
+            item_text = os.path.splitext(s_item)[0].rstrip().replace('_', ' ')
             #round the number, drop the decimal and then covert to a string
             #skip the rounding for the voltage reading
             if(item_type == 'voltage'):

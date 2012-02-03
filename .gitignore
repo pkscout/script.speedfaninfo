@@ -8,3 +8,5 @@ resources/skins/Default/.DS_Store
 resources/skins/Default/media/.DS_Store
 
 .DS_Store
+
+xlogger.pyc
