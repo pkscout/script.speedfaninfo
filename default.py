@@ -200,7 +200,7 @@ class LogParser():
         percents = []
         for s_item, s_value in map(None, first.split('\t'), last.split('\t')):
             item_type = s_item.split('.')[-1].rstrip().lower()
-            item_text = os.path.splitext(s_item)[0].rstrip().replace('_', ' ')
+            item_text = os.path.splitext(s_item)[0].rstrip()
             #round the number, drop the decimal and then covert to a string
             #skip the rounding for the voltage reading
             if(item_type == 'voltage'):
