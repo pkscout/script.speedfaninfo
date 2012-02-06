@@ -29,14 +29,15 @@ class Logger():
         delims = [',', ':', '/', ';', '~', '!', '@', '#', '$', '%', '^', '&', '*']
         line = ''
         for item in items:
-            if(item.__class__.__name__ == 'list' or item.__class__.__name__ == 'tuple'):
+            itemclass = item.__class__.__name__
+            if(itemclass == 'list' or itemclass == 'tuple'):
                 grouping = self.parseListorTuple(item, count+1)
             else:
                 grouping = item
             if(len(line) == 0):
                 line = grouping
             else:
-                line = line + delims[count] + grouping
+                line = line + delims[count] + ' ' + grouping
         return line
         
     def log(self, *args):
