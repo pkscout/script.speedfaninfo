@@ -1,4 +1,5 @@
 0.3.3  02/10/2012
+-First public release
 -Added visual notice if there is no log file location defined or no log file in the defined location
 -Fixed a typo in one of the verbose logging outputs
 -added a README file with instructions on how to setup the SpeedFan log file
