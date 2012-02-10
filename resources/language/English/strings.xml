@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <strings>
     <!-- Plugin settings -->
-    <string id="30000">SpeedFan log folder</string>
+    <string id="30000">SpeedFan Log Folder</string>
     <string id="30001">Enable Verbose Logging</string>
     <string id="30002">Log Temperature Scale</string>
     <string id="30003">Window Update Interval (in seconds)</string>
