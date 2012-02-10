@@ -5,7 +5,7 @@ GETTING SPEEDFAN
 SpeedFan is available at: <http://www.almico.com/speedfan.php>
 
 COMPATIBILITY
-This plugin has been tested with SpeedFan 4.44.  It should work with any version of SpeedFan that outputs the log file in the same format as 4.44.
+This plugin has been tested with SpeedFan 4.44. It should work with any version of SpeedFan that outputs the log file in the same format as 4.44. It has been tested on XBMC Eden (11.0) betas 2 and 3 on Windows and Macintosh. It has not been tested on Dharma (10.1) and likely will not work on Dharma.
 
 SPECIAL LOG CONFIGURATION CONSIDERATIONS
 This readme is not meant to be a tutorial on how to setup SpeedFan or enable logging.  The SpeedFan web site is available to help you with that.  To get SpeedFanInfo to properly parse the log file, you do need to label the various SpeedFan items in a specific way.
