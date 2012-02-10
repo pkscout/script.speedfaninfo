@@ -134,7 +134,7 @@ class LogParser():
 
     def readLogFile(self):
         #try and open the log file
-        lw.log('running readLogFIle from LogParser class', 'verbose')        
+        lw.log('running readLogFile from LogParser class', 'verbose')        
         #SpeedFan rolls the log every day, so we have to look for the log file based on the date
         #SpeedFan also does numerics if it has to roll the log during the day
         #but in my testing it only uses the numeric log for a couple of minutes and then goes
@@ -147,6 +147,10 @@ class LogParser():
             f = open(log_file, 'rb')
         except IOError:
             lw.log('no log file found', 'standard')
+            if(__addon__.getSetting('log_location') == ''):
+                xbmc.executebuiltin('XBMC.Notification("Log File Error", "No log file location defined.", 6000)')
+            else:
+                xbmc.executebuiltin('XBMC.Notification("Log File Error", "No log file in defined location.", 6000)')            
             return
         lw.log('opened logfile ' + log_file, 'verbose')
         #get the first and last line of the log file
