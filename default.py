@@ -32,7 +32,7 @@ class SpeedFanInfoWindow(xbmcgui.WindowXMLDialog):
     def __init__(self, *args, **kwargs):
         # and define it as self
         lw.log('running __init__ from SpeedFanInfoWindow class', 'verbose')
-
+        
     def onInit(self):
         #tell the object to go read the log file, parse it, and put it into listitems for the XML
         lw.log('running inInit from SpeedFanInfoWindow class', 'verbose')
@@ -54,6 +54,7 @@ class SpeedFanInfoWindow(xbmcgui.WindowXMLDialog):
             
     def populateFromLog(self):        
         #get all this stuff into list info items for the window
+        lw.log('attempting to add info of ' +  xbmcgui.Window(xbmcgui.getCurrentWindowId()).getProperty("panel.compact") , 'verbose')
         lw.log('running populateFromLog from SpeedFanInfoWindow class', 'verbose')
         #create new log parser and logger obejects
         lw.log('create new LogParser object', 'verbose')
@@ -108,24 +109,31 @@ class SpeedFanInfoWindow(xbmcgui.WindowXMLDialog):
         item = xbmcgui.ListItem(label=title)
         item.setProperty('istitle','true')
         self.getControl(120).addItem(item)
-        #now add all the data (we want two columns to make good use of the page)
-        lw.log('add all the data to the two column format', 'verbose')        
-        nextside = 'left'
-        for  onething in things:
-            if(nextside == 'left'):
-                left_label = onething[0]
-                left_value = onething[1]
-                nextside = 'right'
-            else:
-                item = xbmcgui.ListItem(label=left_label,label2=onething[0])
+        #now add all the data (we want two columns inf full mode and one column for compact)
+        if (__addon__.getSetting('show_compact') == "true"):
+            lw.log('add all the data to the one column format', 'verbose')
+            for onething in things:
+                    item = xbmcgui.ListItem(label=onething[0],label2='')
+                    item.setProperty('value',onething[1])
+                    self.getControl(120).addItem(item)
+        else:
+            lw.log('add all the data to the two column format', 'verbose')        
+            nextside = 'left'
+            for  onething in things:
+                if(nextside == 'left'):
+                    left_label = onething[0]
+                    left_value = onething[1]
+                    nextside = 'right'
+                else:
+                    item = xbmcgui.ListItem(label=left_label,label2=onething[0])
+                    item.setProperty('value',left_value)
+                    item.setProperty('value2',onething[1])
+                    nextside = 'left'
+                    self.getControl(120).addItem(item)
+            if(nextside == 'right'):
+                item = xbmcgui.ListItem(label=left_label,label2='')
                 item.setProperty('value',left_value)
-                item.setProperty('value2',onething[1])
-                nextside = 'left'
                 self.getControl(120).addItem(item)
-        if(nextside == 'right'):
-            item = xbmcgui.ListItem(label=left_label,label2='')
-            item.setProperty('value',left_value)
-            self.getControl(120).addItem(item)
 
 class LogParser():
     def __init__(self):
@@ -260,7 +268,12 @@ def updateWindow(name, w):
 #run the script
 #create a new object to get all the work done
 lw.log('attempting to create main script object', 'verbose')
-w = SpeedFanInfoWindow("speedfaninfo-main.xml", __addonpath__, "Default")
+if (__addon__.getSetting('show_compact') == "true"):
+    transparency_image = "speedfan-panel-compact-" + str(int(round(float(__addon__.getSetting('transparency'))))) + ".png"
+    xbmcgui.Window(10000).setProperty("speedfan.panel.compact",  transparency_image)
+    w = SpeedFanInfoWindow("speedfaninfo-compact.xml", __addonpath__, "Default")
+else:
+    w = SpeedFanInfoWindow("speedfaninfo-main.xml", __addonpath__, "Default")
 lw.log('main script object created', 'attempting to create worker thread' 'verbose')
 #create and start a separate thread for the looping process that updates the window
 t1 = Thread(target=updateWindow,args=("thread 1",w))
