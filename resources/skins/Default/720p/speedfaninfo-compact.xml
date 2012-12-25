@@ -16,7 +16,7 @@
 				<posx>0</posx>
 				<posy>0</posy>
 				<width>300</width>
-				<height>715</height>
+				<height>710</height>
 				<texture border="40">$INFO[Window(Home).Property(speedfan.panel.compact)]</texture>
 			</control>
 			<control type="button" id="200">
