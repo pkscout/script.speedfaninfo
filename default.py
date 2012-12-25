@@ -12,6 +12,7 @@ __author__       = __addon__.getAddonInfo('author')
 __version__      = __addon__.getAddonInfo('version')
 __addonpath__    = __addon__.getAddonInfo('path')
 __addondir__     = xbmc.translatePath( __addon__.getAddonInfo('profile') )
+__addonicon__    = xbmc.translatePath('%s/icon.png' % __addonpath__ ).decode("utf-8")
 __icon__         = __addon__.getAddonInfo('icon')
 __localize__     = __addon__.getLocalizedString
 
@@ -156,9 +157,9 @@ class LogParser():
         except IOError:
             lw.log('no log file found', 'standard')
             if(__addon__.getSetting('log_location') == ''):
-                xbmc.executebuiltin('XBMC.Notification("Log File Error", "No log file location defined.", 6000)')
+                xbmc.executebuiltin('XBMC.Notification("Log File Error", "No log file location defined.", 6000, '+ __addonicon__ +')')
             else:
-                xbmc.executebuiltin('XBMC.Notification("Log File Error", "No log file in defined location.", 6000)')            
+                xbmc.executebuiltin('XBMC.Notification("Log File Error", "No log file in defined location.", 6000, ' + __addonicon__ + ')')            
             return
         lw.log('opened logfile ' + log_file, 'verbose')
         #get the first and last line of the log file
@@ -266,26 +267,33 @@ def updateWindow(name, w):
             w.populateFromLog()
 
 #run the script
-#create a new object to get all the work done
-lw.log('attempting to create main script object', 'verbose')
-if (__addon__.getSetting('show_compact') == "true"):
-    transparency_image = "speedfan-panel-compact-" + str(int(round(float(__addon__.getSetting('transparency'))))) + ".png"
-    xbmcgui.Window(10000).setProperty("speedfan.panel.compact",  transparency_image)
-    w = SpeedFanInfoWindow("speedfaninfo-compact.xml", __addonpath__, "Default")
+if ( xbmcgui.Window(10000).getProperty("speedfan.running") == "true" ):
+    lw.log('script already running, aborting second run attempt', 'standard')
+    xbmc.executebuiltin('XBMC.Notification("Runtime Error", "Script already running.", 6000, ' + __addonicon__ + ')')
 else:
-    w = SpeedFanInfoWindow("speedfaninfo-main.xml", __addonpath__, "Default")
-lw.log('main script object created', 'attempting to create worker thread' 'verbose')
-#create and start a separate thread for the looping process that updates the window
-t1 = Thread(target=updateWindow,args=("thread 1",w))
-t1.setDaemon(True)
-lw.log('worker thread created', 'attempting to start worker thread' 'verbose')
-t1.start()
-lw.log('worker thread started', 'request window open via doModal', 'verbose')
-#create and open the window
-w.doModal()
-#just some cleanup
-lw.log('attempting to delete main object', 'attempting to delete worker thread', 'verbose')
-del t1
-del w
-lw.log('main object deleted', 'worker thread deleted', 'exiting script', 'verbose')
-del lw
+    xbmcgui.Window(10000).setProperty( "speedfan.running",  "true" )
+    lw.log('attempting to create main script object', 'verbose')
+    if (__addon__.getSetting('show_compact') == "true"):
+        transparency_image = "speedfan-panel-compact-" + str(int(round(float(__addon__.getSetting('transparency'))))) + ".png"
+        xbmcgui.Window(10000).setProperty("speedfan.panel.compact",  transparency_image)
+        #create a new object to get all the work done
+        w = SpeedFanInfoWindow("speedfaninfo-compact.xml", __addonpath__, "Default")
+    else:
+        #create a new object to get all the work done
+        w = SpeedFanInfoWindow("speedfaninfo-main.xml", __addonpath__, "Default")
+    lw.log('main script object created', 'attempting to create worker thread' 'verbose')
+    #create and start a separate thread for the looping process that updates the window
+    t1 = Thread(target=updateWindow,args=("thread 1",w))
+    t1.setDaemon(True)
+    lw.log('worker thread created', 'attempting to start worker thread' 'verbose')
+    t1.start()
+    lw.log('worker thread started', 'request window open via doModal', 'verbose')
+    #create and open the window
+    w.doModal()
+    #just some cleanup
+    lw.log('attempting to delete main object', 'attempting to delete worker thread', 'verbose')
+    del t1
+    del w
+    lw.log('main object deleted', 'worker thread deleted', 'exiting script', 'verbose')
+    del lw
+    xbmcgui.Window(10000).setProperty( "speedfan.running",  "false" )
