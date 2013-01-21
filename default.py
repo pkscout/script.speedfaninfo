@@ -268,8 +268,7 @@ def updateWindow(name, w):
 
 #run the script
 if ( xbmcgui.Window(10000).getProperty("speedfan.running") == "true" ):
-    lw.log('script already running, aborting second run attempt', 'standard')
-    xbmc.executebuiltin('XBMC.Notification("Runtime Error", "Script already running.", 6000, ' + __addonicon__ + ')')
+    lw.log('script already running, aborting subsequent run attempts', 'standard')
 else:
     xbmcgui.Window(10000).setProperty( "speedfan.running",  "true" )
     lw.log('attempting to create main script object', 'verbose')
