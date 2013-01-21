@@ -1,6 +1,7 @@
 v.0.4.1
 - added compact display option
 - added logic to keep script from being started multiple times
+- updated language files from Transifex
 
 v.0.4.0
 - updated language files from Transifex
