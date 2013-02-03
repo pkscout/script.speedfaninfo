@@ -81,15 +81,21 @@ class SpeedFanInfoWindow(xbmcgui.WindowXMLDialog):
         #put in all the speed information (including percentage)
         lw.log('put in all the speed information (including percentages)', 'verbose')
         if(len(speeds) > 0):
-            #please don't ask why this is so complicated, the simple way caused a fatal error on Windows
-            if(len(speeds) == len(percents)):
-                en_speeds = []
-                #add the percentage information to the end of the speed
-                lw.log('adding the percentages to the end of the speeds', 'verbose')
-                for i in range(len(speeds)):
-                    en_speeds.append((speeds[i][0], speeds [i][1] + ' (' + percents[i][1] + ')'))
-            else:
-                en_speeds = speeds
+            lw.log('adding the percentages to the end of the speeds', 'verbose')
+            en_speeds = []
+            for i in range(len(speeds)):
+                #if there is a matching percentage, add it to the end of the speed
+                percent_match = False
+                percent_value = ''
+                for j in range(len(percents)):
+                    if (speeds[i][0][:-1] == percents[j][0]):
+                        lw.log('matched speed ' + speeds[i][0][:-1] + ' with percent ' + percents[j][0], 'verbose')
+                        percent_match = True
+                        percent_value = percents[j][1]
+                if percent_match:
+                    en_speeds.append((speeds[i][0], speeds [i][1] + ' (' + percent_value + ')'))
+                else:
+                    en_speeds.append((speeds[i][0], speeds [i][1]))
             self.populateList(__localize__(30101), en_speeds, firstline_shown)
             firstline_shown = True
         #put in all the voltage information
