@@ -256,7 +256,7 @@ def updateWindow(name, w):
     #this strange looping exists because I didn't want to sleep the thread for very long
     #as time.sleep() keeps user input from being acted upon
     lw.log('running the worker thread from inside the def',xbmc.LOGDEBUG);
-    while __windowopen__:
+    while __windowopen__ and (not xbmc.abortRequested):
         #start counting up to the delay set in the preference and sleep for one second
         lw.log('start counting the delay set in the preference',xbmc.LOGDEBUG);
         for i in range(int(__addon__.getSetting('update_delay'))):
