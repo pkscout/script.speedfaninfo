@@ -3,6 +3,7 @@ v 0.5.4
 - added Galician language files
 - changed over to Frodo .po language files
 - updated addon.xml with new information and format for repo database
+- updated logging so it uses standard XBMC logging levels
 
 v.0.5.3
 - internal testing version
