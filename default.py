@@ -1,8 +1,8 @@
 import os, sys, time, datetime
 import xbmcaddon, xbmc, xbmcgui
 from threading import Thread
-#this is a wrapper for the xbmc.log that adds logic for verbose or standard logging
-import xlogger
+#this is a wrapper for the xbmc.log that adds logic for different data types
+from resources.xlogger import xlogger
 
 ### get addon info and set globals
 __addon__        = xbmcaddon.Addon()
