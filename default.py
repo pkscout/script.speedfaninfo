@@ -83,11 +83,14 @@ class SpeedFanInfoWindow(xbmcgui.WindowXMLDialog):
         for i in range(3):
             if i == 0:
                log_num = ''
+               use_log = 'true'
             else:
                log_num = str(i+1)
-            log_file = __addon__.getSetting('log_location' + log_num) + 'SFLog' + log_file_date + '.csv'
-            title = __addon__.getSetting('log_title' + log_num)
-            log_files.append( (title, log_file) )
+               use_log = __addon__.getSetting('use_log' + log_num)
+            if use_log == 'true':
+                log_file = __addon__.getSetting('log_location' + log_num) + 'SFLog' + log_file_date + '.csv'
+                title = __addon__.getSetting('log_title' + log_num)
+                log_files.append( (title, log_file) )
         return log_files
 
     def populateFromLog(self):        
