@@ -1,8 +1,8 @@
 import os, sys, time, datetime
 import xbmcaddon, xbmc, xbmcgui, xbmcvfs
 from threading import Thread
-from resources.xlogger.xlogger import Logger
-from resources.fix_utf8.fix_utf8 import smartUTF8
+from resources.common.xlogger import Logger
+from resources.common.fix_utf8 import smartUTF8
 
 ### get addon info and set globals
 __addon__        = xbmcaddon.Addon()
@@ -25,8 +25,7 @@ ACTION_PREVIOUS_MENU = 10
 ACTION_BACK = 92
 
 #create a global logger object and set the preamble
-lw = Logger()
-lw.setPreamble ('[speedfaninfo]')
+lw = Logger('[speedfaninfo]')
 
 #this is the class for creating and populating the window 
 class SpeedFanInfoWindow(xbmcgui.WindowXMLDialog): 
