@@ -1,15 +1,5 @@
-import xbmcaddon, xbmc
+import xbmc
 
-### get addon info and set globals
-__addon__        = xbmcaddon.Addon()
-__addonid__      = __addon__.getAddonInfo('id')
-__addonname__    = __addon__.getAddonInfo('name')
-__author__       = __addon__.getAddonInfo('author')
-__version__      = __addon__.getAddonInfo('version')
-__addonpath__    = __addon__.getAddonInfo('path')
-__addondir__     = xbmc.translatePath( __addon__.getAddonInfo('profile') )
-__icon__         = __addon__.getAddonInfo('icon')
-__localize__     = __addon__.getLocalizedString
 __log_preamble__ = ''
 
 #this class creates an object used to log stuff to the xbmc log file
@@ -58,6 +48,3 @@ class Logger():
             else:
                 line = 'no appropriate action found for class ' + argclass
             xbmc.log(__log_preamble__ + ' ' + line, log_level)
-
-
-inst = Logger()

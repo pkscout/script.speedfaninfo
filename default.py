@@ -1,8 +1,8 @@
 import os, sys, time, datetime
-import xbmcaddon, xbmc, xbmcgui
+import xbmcaddon, xbmc, xbmcgui, xbmcvfs
 from threading import Thread
-#this is a wrapper for the xbmc.log that adds logic for different data types
-from resources.xlogger import xlogger
+from resources.xlogger.xlogger import Logger
+from resources.fix_utf8.fix_utf8 import smartUTF8
 
 ### get addon info and set globals
 __addon__        = xbmcaddon.Addon()
@@ -14,7 +14,8 @@ __addonpath__    = __addon__.getAddonInfo('path')
 __addondir__     = xbmc.translatePath( __addon__.getAddonInfo('profile') )
 __addonicon__    = xbmc.translatePath('%s/icon.png' % __addonpath__ ).decode("utf-8")
 __icon__         = __addon__.getAddonInfo('icon')
-__localize__     = __addon__.getLocalizedString
+__language__     = __addon__.getLocalizedString
+
 
 #global used to tell the worker thread the status of the window
 __windowopen__   = True
@@ -24,7 +25,7 @@ ACTION_PREVIOUS_MENU = 10
 ACTION_BACK = 92
 
 #create a global logger object and set the preamble
-lw = xlogger.inst
+lw = Logger()
 lw.setPreamble ('[speedfaninfo]')
 
 #this is the class for creating and populating the window 
@@ -37,7 +38,7 @@ class SpeedFanInfoWindow(xbmcgui.WindowXMLDialog):
     def onInit(self):
         #tell the object to go read the log file, parse it, and put it into listitems for the XML
         lw.log('running inInit from SpeedFanInfoWindow class', xbmc.LOGDEBUG)
-        self.populateFromLog()
+        self.populateFromAllLogs()
 
     def onAction(self, action):
         #captures user input and acts as needed
@@ -52,14 +53,50 @@ class SpeedFanInfoWindow(xbmcgui.WindowXMLDialog):
             #tell the window to close
             lw.log('tell the window to close', xbmc.LOGDEBUG)
             self.close()
+
+    def populateFromAllLogs(self):
+        lw.log('reset the window to prep it for data', xbmc.LOGDEBUG)
+        self.getControl(120).reset()
+        displayed_log = False
+        for title, logfile in self.getLogFiles():
+            self.LOGFILE = logfile
+            if title:
+                item = xbmcgui.ListItem(label=title)
+                item.setProperty('istitle','true')
+                self.getControl(120).addItem(item)
+            if xbmcvfs.exists( logfile ):
+                displayed_log = True
+                self.populateFromLog()
+        if not displayed_log:
+            command = 'XBMC.Notification(%s, %s, %s, %s)' % (smartUTF8(__language__(30103)), smartUTF8(__language__(30104)), 6000, smartUTF8(__addonicon__))
+            xbmc.executebuiltin(command)
+
             
+            
+    def getLogFiles(self):
+        #SpeedFan rolls the log every day, so we have to look for the log file based on the date
+        #SpeedFan also does numerics if it has to roll the log during the day
+        #but in my testing it only uses the numeric log for a couple of minutes and then goes
+        #back to the main dated log, so I only read the main log file for a given date
+        log_file_date = datetime.date(2011,1,29).today().isoformat().replace('-','')
+        log_files = []
+        for i in range(3):
+            if i == 0:
+               log_num = ''
+            else:
+               log_num = str(i+1)
+            log_file = __addon__.getSetting('log_location' + log_num) + 'SFLog' + log_file_date + '.csv'
+            title = __addon__.getSetting('log_title' + log_num)
+            log_files.append( (title, log_file) )
+        return log_files
+
     def populateFromLog(self):        
         #get all this stuff into list info items for the window
         lw.log('attempting to add info of ' +  xbmcgui.Window(xbmcgui.getCurrentWindowId()).getProperty("panel.compact") , xbmc.LOGDEBUG)
         lw.log('running populateFromLog from SpeedFanInfoWindow class', xbmc.LOGDEBUG)
         #create new log parser and logger obejects
         lw.log('create new LogParser object', xbmc.LOGDEBUG)
-        lp = LogParser()
+        lp = LogParser(self.LOGFILE)
         #get the information from the SpeedFan Log
         lw.log('ask the LogParser to get temps, speeds, voltages, and percents', xbmc.LOGDEBUG)
         temps, speeds, voltages, percents = lp.parseLog()
@@ -69,14 +106,12 @@ class SpeedFanInfoWindow(xbmcgui.WindowXMLDialog):
         for i in range(len(temps)):
               temps[i][1] = temps[i][1][:-1] + u'\N{DEGREE SIGN}' + temps[i][1][-1:]
       #now parse all the data and get it into ListIems for display on the page
-        lw.log('reset the window to prep it for data', xbmc.LOGDEBUG)
-        self.getControl(120).reset()
         #this allows for a line space *after* the first one so the page looks pretty
         firstline_shown = False
         #put in all the temperature information
         lw.log('put in all the temperature information', xbmc.LOGDEBUG)
         if(len(temps) > 0):
-            self.populateList(__localize__(30100), temps, firstline_shown)
+            self.populateList(__language__(30100), temps, firstline_shown)
             firstline_shown = True
         #put in all the speed information (including percentage)
         lw.log('put in all the speed information (including percentages)', xbmc.LOGDEBUG)
@@ -96,12 +131,15 @@ class SpeedFanInfoWindow(xbmcgui.WindowXMLDialog):
                     en_speeds.append((speeds[i][0], speeds [i][1] + ' (' + percent_value + ')'))
                 else:
                     en_speeds.append((speeds[i][0], speeds [i][1]))
-            self.populateList(__localize__(30101), en_speeds, firstline_shown)
+            self.populateList(__language__(30101), en_speeds, firstline_shown)
             firstline_shown = True
         #put in all the voltage information
         lw.log('put in all the voltage information', xbmc.LOGDEBUG)
         if(len(voltages) > 0):
-            self.populateList(__localize__(30102), voltages, firstline_shown)
+            self.populateList(__language__(30102), voltages, firstline_shown)
+        #add empty line at end in case there's another log file
+        item = xbmcgui.ListItem()
+        self.getControl(120).addItem(item) #this adds an empty line
         #log that we're done and ready to show the page
         lw.log('completed putting information into lists, displaying window', xbmc.LOGDEBUG)
             
@@ -116,7 +154,7 @@ class SpeedFanInfoWindow(xbmcgui.WindowXMLDialog):
         item = xbmcgui.ListItem(label=title)
         item.setProperty('istitle','true')
         self.getControl(120).addItem(item)
-        #now add all the data (we want two columns inf full mode and one column for compact)
+        #now add all the data (we want two columns in full mode and one column for compact)
         if (__addon__.getSetting('show_compact') == "true"):
             lw.log('add all the data to the one column format', xbmc.LOGDEBUG)
             for onething in things:
@@ -143,31 +181,21 @@ class SpeedFanInfoWindow(xbmcgui.WindowXMLDialog):
                 self.getControl(120).addItem(item)
 
 class LogParser():
-    def __init__(self):
-        lw.log('running __init__ from LogParser class', xbmc.LOGDEBUG)        
+    def __init__(self, log_file):
+        lw.log('running __init__ from LogParser class', xbmc.LOGDEBUG)
+        self.LOGFILE = log_file
         # and define it as self
 
     def readLogFile(self):
         #try and open the log file
-        lw.log('running readLogFile from LogParser class', xbmc.LOGDEBUG)        
-        #SpeedFan rolls the log every day, so we have to look for the log file based on the date
-        #SpeedFan also does numerics if it has to roll the log during the day
-        #but in my testing it only uses the numeric log for a couple of minutes and then goes
-        #back to the main dated log, so I only read the main log file for a given date
-        log_file_date = datetime.date(2011,1,29).today().isoformat().replace('-','')
-        log_file_raw = __addon__.getSetting('log_location') + 'SFLog' + log_file_date
-        log_file = log_file_raw + '.csv'
-        lw.log('trying to open logfile ' + log_file, xbmc.LOGDEBUG)
+        lw.log('trying to open logfile ' + self.LOGFILE, xbmc.LOGDEBUG)
         try:
-            f = open(log_file, 'rb')
-        except IOError:
-            lw.log('no log file found', xbmc.LOGERROR)
-            if(__addon__.getSetting('log_location') == ''):
-                xbmc.executebuiltin('XBMC.Notification("Log File Error", "No log file location defined.", 6000, '+ __addonicon__ +')')
-            else:
-                xbmc.executebuiltin('XBMC.Notification("Log File Error", "No log file in defined location.", 6000, ' + __addonicon__ + ')')            
-            return
-        lw.log('opened logfile ' + log_file, xbmc.LOGDEBUG)
+            f = open(self.LOGFILE, 'rb')
+        except e:
+            lw.log('unexpected error when reading log file', xbmc.LOGERROR)
+            lw.log(e, xbmc.LOGERROR)
+            return ('', '')
+        lw.log('opened logfile ' + self.LOGFILE, xbmc.LOGDEBUG)
         #get the first and last line of the log file
         #the first line has the header information, and the last line has the last log entry
         #Speedfan updates the log every three seconds, so I didn't want to read the whole log
@@ -211,12 +239,14 @@ class LogParser():
         #read the log file
         lw.log('read the log file',xbmc.LOGDEBUG);
         first, last = self.readLogFile()
-        #pair up the heading with the value
-        lw.log('pair up the heading with the value',xbmc.LOGDEBUG);
         temps = []
         speeds = []
         voltages = []
         percents = []
+        if first == '' or last == '':
+            return temps, speeds, voltages, percents
+        #pair up the heading with the value
+        lw.log('pair up the heading with the value',xbmc.LOGDEBUG);
         for s_item, s_value in map(None, first.split('\t'), last.split('\t')):
             item_type = s_item.split('.')[-1].rstrip().lower()
             item_text = os.path.splitext(s_item)[0].rstrip()
