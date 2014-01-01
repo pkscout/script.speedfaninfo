@@ -1,5 +1,7 @@
 v.0.5.4.2
 - fix so all logs update properly
+- fix so window updates properly when using only one log
+- code refactoring
 
 v.0.5.4.1
 - added ability to monitor multiple logs

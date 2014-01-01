@@ -28,9 +28,10 @@ def updateWindow( name, w ):
     #this is the worker thread that updates the window information every w seconds
     #this strange looping exists because I didn't want to sleep the thread for very long
     #as time.sleep() keeps user input from being acted upon
+    delay = __addon__.getSetting( 'update_delay' )
     while __windowopen__ and (not xbmc.abortRequested):
         #start counting up to the delay set in the preference and sleep for one second
-        for i in range( int( __addon__.getSetting( 'update_delay' ) ) ):
+        for i in range( int( delay ) ):
             #as long as the window is open, keep sleeping
             if __windowopen__:
                 time.sleep(1)
@@ -49,6 +50,7 @@ class Main( xbmcgui.WindowXMLDialog ):
 
         
     def onInit( self ):
+        self._get_settings()
         self._populate_from_all_logs()
 
 
@@ -71,18 +73,27 @@ class Main( xbmcgui.WindowXMLDialog ):
         #SpeedFan rolls the log every day, so we have to look for the log file based on the date
         log_file_date = datetime.date(2011,1,29).today().isoformat().replace('-','')
         log_files = []
-        for i in range(3):
-            if i == 0:
-               log_num = ''
-               use_log = 'true'
-            else:
-               log_num = str(i+1)
-               use_log = __addon__.getSetting( 'use_log' + log_num )
-            if use_log == 'true':
-                log_file = os.path.join( __addon__.getSetting( 'log_location' + log_num ), 'SFLog' + log_file_date + '.csv' )
-                title = __addon__.getSetting( 'log_title' + log_num )
-                log_files.append( (title, log_file) )
+        for info_set in self.LOGINFO:
+            if info_set['use_log'] == 'true':
+                log_file = os.path.join( info_set['loc'], 'SFLog' + log_file_date + '.csv' )
+                log_files.append( (info_set['title'], log_file) )
         return log_files
+
+
+    def _get_settings( self ):
+        self.SHOWCOMPACT = __addon__.getSetting('show_compact')
+        self.LOGINFO = []        
+        for i in range( 3 ):
+            log_info = {}
+            if i == 0:
+                log_num = ''
+                log_info['use_log'] = 'true'
+            else:
+                log_num = str( i + 1 )
+                log_info['use_log'] = __addon__.getSetting( 'use_log' + log_num )
+            log_info['loc'] = __addon__.getSetting( 'log_location' + log_num )
+            log_info['title'] = __addon__.getSetting( 'log_title' + log_num )
+            self.LOGINFO.append( log_info )
 
 
     def _parse_log( self ):
@@ -201,7 +212,7 @@ class Main( xbmcgui.WindowXMLDialog ):
         item.setProperty( 'istitle','true' )
         self.getControl( 120 ).addItem( item )
         #now add all the data (we want two columns in full mode and one column for compact)
-        if __addon__.getSetting('show_compact') == "true":
+        if self.SHOWCOMPACT == "true":
             lw.log( 'add all the data to the one column format', xbmc.LOGDEBUG )
             for onething in things:
                     item = xbmcgui.ListItem( label=onething[0],label2='' )
