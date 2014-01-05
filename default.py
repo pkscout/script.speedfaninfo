@@ -81,6 +81,7 @@ class Main( xbmcgui.WindowXMLDialog ):
 
 
     def _get_settings( self ):
+        self.LISTCONTROL = self.getControl( 120 )
         self.SHOWCOMPACT = __addon__.getSetting('show_compact')
         self.LOGINFO = []        
         for i in range( 3 ):
@@ -144,18 +145,20 @@ class Main( xbmcgui.WindowXMLDialog ):
 
     def _populate_from_all_logs( self ):
         lw.log( 'reset the window to prep it for data', xbmc.LOGDEBUG )
-        self.getControl( 120 ).reset()
+        self.LISTCONTROL.reset()
         displayed_log = False
         for title, logfile in self._get_log_files():
             self.LOGFILE = logfile
             if title:
                 item = xbmcgui.ListItem( label=title )
                 item.setProperty( 'istitle','true' )
-                self.getControl( 120 ).addItem( item )
+                self.LISTCONTROL.addItem( item )
             if xbmcvfs.exists( logfile ):
                 displayed_log = True
                 self._populate_from_log()
-        if not displayed_log:
+        if displayed_log:
+            self.setFocus( self.LISTCONTROL )
+        else:
             command = 'XBMC.Notification(%s, %s, %s, %s)' % (smartUTF8(__language__(30103)), smartUTF8(__language__(30104)), 6000, smartUTF8(__addonicon__))
             xbmc.executebuiltin( command )
 
@@ -198,7 +201,7 @@ class Main( xbmcgui.WindowXMLDialog ):
             self._populate_list( __language__(30102), voltages, firstline_shown )
         #add empty line at end in case there's another log file
         item = xbmcgui.ListItem()
-        self.getControl( 120 ).addItem( item ) #this adds an empty line
+        self.LISTCONTROL.addItem( item ) #this adds an empty line
         lw.log( 'completed putting information into lists, displaying window', xbmc.LOGDEBUG )
 
             
@@ -207,17 +210,17 @@ class Main( xbmcgui.WindowXMLDialog ):
         lw.log( 'create the list item for the title of the section', xbmc.LOGDEBUG )        
         if titlespace:
             item = xbmcgui.ListItem()
-            self.getControl( 120 ).addItem( item ) #this adds an empty line
+            self.LISTCONTROL.addItem( item ) #this adds an empty line
         item = xbmcgui.ListItem( label=title )
         item.setProperty( 'istitle','true' )
-        self.getControl( 120 ).addItem( item )
+        self.LISTCONTROL.addItem( item )
         #now add all the data (we want two columns in full mode and one column for compact)
         if self.SHOWCOMPACT == "true":
             lw.log( 'add all the data to the one column format', xbmc.LOGDEBUG )
             for onething in things:
                     item = xbmcgui.ListItem( label=onething[0],label2='' )
                     item.setProperty( 'value',onething[1] )
-                    self.getControl( 120 ).addItem( item )
+                    self.LISTCONTROL.addItem( item )
         else:
             lw.log( 'add all the data to the two column format', xbmc.LOGDEBUG )        
             nextside = 'left'
@@ -231,11 +234,11 @@ class Main( xbmcgui.WindowXMLDialog ):
                     item.setProperty( 'value',left_value )
                     item.setProperty( 'value2',onething[1] )
                     nextside = 'left'
-                    self.getControl( 120 ).addItem( item )
+                    self.LISTCONTROL.addItem( item )
             if(nextside == 'right'):
                 item = xbmcgui.ListItem( label=left_label,label2='' )
                 item.setProperty( 'value',left_value )
-                self.getControl( 120 ).addItem( item )
+                self.LISTCONTROL.addItem( item )
 
 
     def _read_log_file( self ):
