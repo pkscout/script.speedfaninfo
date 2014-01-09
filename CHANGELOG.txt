@@ -1,13 +1,6 @@
-v.0.5.4.3
-- script now sets focus on window so you can scroll through it without mouse control
-
-v.0.5.4.2
-- fix so all logs update properly
-- fix so window updates properly when using only one log
-- code refactoring
-
-v.0.5.4.1
+v.0.5.5
 - added ability to monitor multiple logs
+- script now sets focus on window so you can scroll through it without mouse control
 - added additional metadata to addon
 - updated module import to follow best practice
 - cleaned up code and moved some stuff into external modules
