@@ -1,6 +1,7 @@
-#v.0.1.4
+#v.0.1.6
 
 import requests2 as _requests
+import socket
     
 
 class URL():
@@ -47,6 +48,9 @@ class URL():
         except _requests.exceptions.Timeout, e:
             loglines.append( 'timeout error while downloading from ' + url )
             loglines.append( e )
+        except socket.timeout, e:
+            loglines.append( 'timeout error while downloading from ' + url )
+            loglines.append( e )
         except _requests.exceptions.HTTPError, e:
             loglines.append( 'HTTP Error while downloading from ' + url )
             loglines.append( e )
@@ -64,7 +68,10 @@ class URL():
                 elif self.returntype == 'json':
                     data = urldata.json()
             except:
-                data = urldata
+                success = False
+                data = ''
+                loglines.append( 'unable to convert returned object to acceptable type' )
+                loglines.append( urldata )
         else:
             success = False
             data = ''
