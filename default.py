@@ -245,7 +245,7 @@ class Main( xbmcgui.WindowXMLDialog ):
         lw.log( ['trying to open logfile ' + self.LOGFILE] )
         try:
             f = open(self.LOGFILE, 'rb')
-        except e:
+        except Exception, e:
             lw.log( ['unexpected error when reading log file', e], xbmc.LOGERROR )
             return ('', '')
         lw.log( ['opened logfile ' + self.LOGFILE] )

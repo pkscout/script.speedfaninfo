@@ -6,3 +6,5 @@ xlogger.pyc
 .gitignore
 
 *.pyc
+
+*.pyo
