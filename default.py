@@ -242,23 +242,24 @@ class Main( xbmcgui.WindowXMLDialog ):
 
     def _parse_line( self, f, s_pos ):
         file_size = f.size()
-        read_bytes = 1024
+        read_size = 256
         if s_pos == 2:
             direction = -1
-            offset = read_bytes
+            offset = read_size
         else:
             direction = 1
             offset = 0
         while True:
-            if file_size < read_bytes:
-                read_bytes = file_size
-            result = f.seek( direction*offset, s_pos )
-            read_str = f.read( read_bytes )
+            if file_size < read_size:
+                read_size = file_size
+            f.seek( direction*offset, s_pos )
+            read_str = f.read( read_size )
+            lw.log( [read_str] )
             # Remove newline at the end
             if read_str[offset - 1] == '\n':
                 read_str = read_str[0:-1]
             lines = read_str.split('\n')
-            if len( lines ) > 1:  # Got a line
+            if len( lines ) > 1:  # Got a complete line
                 if s_pos == 2:
                     return lines[-1]
                 else:

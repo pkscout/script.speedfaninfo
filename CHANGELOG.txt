@@ -1,3 +1,6 @@
+v.0.5.6.4
+- change to read smaller chunks of the log file
+
 v.0.5.6.3
 - change over to xbmcvfs to read files from remote hosts
 
