@@ -1,3 +1,6 @@
+v. 0.5.6.5
+- updated common libraries
+
 v.0.5.6.4
 - change to read smaller chunks of the log file
 
