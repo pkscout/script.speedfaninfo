@@ -1,5 +1,5 @@
 v.0.5.7
-- added full support for logfile on remote file system with mapping drive in OS
+- added full support for logfile on remote file system without mapping drive in OS
 - fixed crash when log file can't be parsed
 - updated language files
 
