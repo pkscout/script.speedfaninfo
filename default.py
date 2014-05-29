@@ -11,6 +11,10 @@ __addonversion__ = __addon__.getAddonInfo('version')
 __addonpath__    = __addon__.getAddonInfo('path').decode('utf-8')
 __addonicon__    = xbmc.translatePath('%s/icon.png' % __addonpath__ )
 __language__     = __addon__.getLocalizedString
+__preamble__     = '[SpeedFan Info]'
+__suppress__     = __addon__.getSetting( "suppress" ) 
+
+lw = Logger( preamble=__preamble__, suppress=__suppress__ )
 
 
 #global used to tell the worker thread the status of the window
@@ -19,9 +23,6 @@ __windowopen__   = True
 #capture a couple of actions to close the window
 ACTION_PREVIOUS_MENU = 10
 ACTION_BACK = 92
-
-#create a global logger object and set the preamble
-lw = Logger( '[speedfaninfo]' )
 
 
 def updateWindow( name, w ):
@@ -289,7 +290,8 @@ class Main( xbmcgui.WindowXMLDialog ):
 
 #run the script
 if ( __name__ == "__main__" ):
-    lw.log( ['script version %s started' % __addonversion__] )
+    xbmc.log( '%s script version %s started' % (__preamble__, __addonversion__), xbmc.LOGNOTICE )
+    xbmc.log( '%s log suppression set to %s' % (__preamble__, __suppress__), xbmc.LOGNOTICE )
     xbmcgui.Window( 10000 ).setProperty( "speedfan.running",  "false" )
     if xbmcgui.Window( 10000).getProperty( "speedfan.running" ) == "true":
         lw.log( ['script already running, aborting subsequent run attempts'] )
@@ -313,4 +315,4 @@ if ( __name__ == "__main__" ):
         del t1
         del w
         xbmcgui.Window(10000).setProperty( "speedfan.running",  "false" )
-lw.log( ['script stopped'] )
+xbmc.log( '%s script stopped' % __preamble__, xbmc.LOGNOTICE )
