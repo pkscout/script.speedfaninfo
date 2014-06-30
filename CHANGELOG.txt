@@ -1,5 +1,7 @@
 v.0.5.9
 - fix for required xbmc python version
+- fix for malformed setting.xml file
+- included XML encoding declaration in skin files
 
 v.0.5.8
 - suppress all logging by default with option to turn debug logging on
