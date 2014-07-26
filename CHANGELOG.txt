@@ -1,4 +1,4 @@
-v.0.6.0~beta1
+v.0.6.0
 - fix for crash when using smb path
 
 v.0.5.9
