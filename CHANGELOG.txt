@@ -1,3 +1,6 @@
+v.0.6.2~beta1
+- fix for display issue in Kodi Helix
+
 v.0.6.1
 - if rpm reported as zero 0, then SFID only shows percentage
 
