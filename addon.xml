@@ -2,7 +2,7 @@
 <addon id="script.speedfaninfo" name="SpeedFan Information Display" version="0.7.0" provider-name="pkscout">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0"/>
-		<import addon="xbmc.addon" version="14.0.0"/>
+		<import addon="xbmc.addon" version="13.0.0"/>
 	</requires>
 	<extension point="xbmc.python.script" library="default.py">
 		<provides>executable</provides>
