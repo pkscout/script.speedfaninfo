@@ -1,4 +1,4 @@
-v.0.7.3~beta1
+v.0.7.3
 - convert Celcius in Speedfan log to Fahrenheit when Fahrenheit is selected in settings
 
 v.0.7.2
