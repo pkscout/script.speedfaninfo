@@ -72,7 +72,17 @@ msgctxt "#30021"
 msgid "    Log File Location"
 msgstr ""
 
-#empty strings from id 30022 to 30099
+#empty strings from id 30022 to 30029
+
+msgctxt "#30030"
+msgid "Advanced"
+msgstr ""
+
+msgctxt "#30031"
+msgid "Set Line Read Size"
+msgstr ""
+
+#empty strings from 30032 to 30099
 
 msgctxt "#30100"
 msgid "Temperature Information"

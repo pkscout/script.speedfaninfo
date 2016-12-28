@@ -17,4 +17,7 @@
         <setting id="log_title3" type="text" enable="eq(-1,true)" label="30020" default="" />
         <setting id="log_location3" type="folder" enable="eq(-2,true)" label="30021" default="" />
     </category>
+    <category label="30030">
+        <setting id="read_size" type="number" label="30031" default="256" />
+    </category>
 </settings>

@@ -5,20 +5,20 @@ from resources.common.xlogger import Logger
 from resources.common.fix_utf8 import smartUTF8
 
 ### get addon info and set globals
-__addon__        = xbmcaddon.Addon()
-__addonname__    = __addon__.getAddonInfo('id')
-__addonversion__ = __addon__.getAddonInfo('version')
-__addonpath__    = __addon__.getAddonInfo('path').decode('utf-8')
-__addonicon__    = xbmc.translatePath('%s/icon.png' % __addonpath__ )
-__language__     = __addon__.getLocalizedString
-__preamble__     = '[SpeedFan Info]'
-__logdebug__     = __addon__.getSetting( "logging" ) 
+addon        = xbmcaddon.Addon()
+addonname    = addon.getAddonInfo( 'id' )
+addonversion = addon.getAddonInfo( 'version' )
+addonpath    = addon.getAddonInfo( 'path' ).decode( 'utf-8' )
+addonicon    = xbmc.translatePath( '%s/icon.png' % addonpath )
+language     = addon.getLocalizedString
+preamble     = '[SpeedFan Info]'
+logdebug     = addon.getSetting( 'logging' ) 
 
-lw = Logger( preamble=__preamble__, logdebug=__logdebug__ )
+lw = Logger( preamble = preamble, logdebug = logdebug )
 
 
 #global used to tell the worker thread the status of the window
-__windowopen__   = True
+windowopen   = True
 
 #capture a couple of actions to close the window
 ACTION_PREVIOUS_MENU = 10
@@ -29,18 +29,18 @@ def updateWindow( name, w ):
     #this is the worker thread that updates the window information every w seconds
     #this strange looping exists because I didn't want to sleep the thread for very long
     #as time.sleep() keeps user input from being acted upon
-    delay = __addon__.getSetting( 'update_delay' )
-    while __windowopen__ and (not xbmc.abortRequested):
+    delay = addon.getSetting( 'update_delay' )
+    while windowopen and (not xbmc.abortRequested):
         #start counting up to the delay set in the preference and sleep for one second
         for i in range( int( delay ) ):
             #as long as the window is open, keep sleeping
-            if __windowopen__:
+            if windowopen:
                 time.sleep(1)
             #otherwise drop out of the loop so we can exit the thread
             else:
             	break
         #as long as the window is open grab new data and refresh the window
-        if __windowopen__:
+        if windowopen:
             lw.log( ['window is still open, updating the window with new data'] );
             w._populate_from_all_logs()
 
@@ -61,9 +61,9 @@ class Main( xbmcgui.WindowXMLDialog ):
         if action == ACTION_PREVIOUS_MENU or action == ACTION_BACK:
             #if the user hits back or exit, close the window
             lw.log( ['user initiated previous menu or back'] )
-            global __windowopen__
+            global windowopen
             #set this to false so the worker thread knows the window is being closed
-            __windowopen__ = False
+            windowopen = False
             lw.log( ['set windowopen to false'] )
             #tell the window to close
             lw.log( ['tell the window to close'] )
@@ -83,7 +83,7 @@ class Main( xbmcgui.WindowXMLDialog ):
 
     def _get_settings( self ):
         self.LISTCONTROL = self.getControl( 120 )
-        self.SHOWCOMPACT = __addon__.getSetting('show_compact')
+        self.SHOWCOMPACT = addon.getSetting('show_compact')
         self.LOGINFO = []        
         for i in range( 3 ):
             log_info = {}
@@ -92,9 +92,9 @@ class Main( xbmcgui.WindowXMLDialog ):
                 log_info['use_log'] = 'true'
             else:
                 log_num = str( i + 1 )
-                log_info['use_log'] = __addon__.getSetting( 'use_log' + log_num )
-            log_info['loc'] = __addon__.getSetting( 'log_location' + log_num )
-            log_info['title'] = __addon__.getSetting( 'log_title' + log_num )
+                log_info['use_log'] = addon.getSetting( 'use_log' + log_num )
+            log_info['loc'] = addon.getSetting( 'log_location' + log_num )
+            log_info['title'] = addon.getSetting( 'log_title' + log_num )
             self.LOGINFO.append( log_info )
 
 
@@ -125,7 +125,7 @@ class Main( xbmcgui.WindowXMLDialog ):
                     s_value = str( int( round( float( s_value.rstrip().replace(',', '.') ) ) ) )
             if item_type == "temp":
                 lw.log( ['put the information in the temperature array'] )
-                if __addon__.getSetting( 'temp_scale' ) == 'Celcius':
+                if addon.getSetting( 'temp_scale' ) == 'Celcius':
                     temps.append( [item_text + ':', s_value + 'C'] )
                 else:
                     temps.append( [item_text + ':', str( int( round( ( float( s_value ) * 1.8 ) + 32 ) ) ) + 'F'] ) 
@@ -158,7 +158,7 @@ class Main( xbmcgui.WindowXMLDialog ):
         if displayed_log:
             self.setFocus( self.LISTCONTROL )
         else:
-            command = 'XBMC.Notification(%s, %s, %s, %s)' % (smartUTF8(__language__(30103)), smartUTF8(__language__(30104)), 6000, smartUTF8(__addonicon__))
+            command = 'XBMC.Notification(%s, %s, %s, %s)' % ( smartUTF8( language( 30103 ) ), smartUTF8( language( 30104 ) ), 6000, smartUTF8( addonicon ) )
             xbmc.executebuiltin( command )
 
                      
@@ -174,7 +174,7 @@ class Main( xbmcgui.WindowXMLDialog ):
         firstline_shown = False
         lw.log( ['put in all the temperature information'] )
         if temps:
-            self._populate_list( __language__(30100), temps, firstline_shown )
+            self._populate_list( language( 30100 ), temps, firstline_shown )
             firstline_shown = True
         lw.log( ['put in all the speed information (including percentages)'] )
         if speeds:
@@ -196,11 +196,11 @@ class Main( xbmcgui.WindowXMLDialog ):
                         en_speeds.append( (speeds[i][0], speeds [i][1] + ' (' + percent_value + ')') )
                 else:
                     en_speeds.append( (speeds[i][0], speeds [i][1]) )
-            self._populate_list( __language__(30101), en_speeds, firstline_shown )
+            self._populate_list( language( 30101 ), en_speeds, firstline_shown )
             firstline_shown = True
         lw.log( ['put in all the voltage information'] )
         if voltages:
-            self._populate_list( __language__(30102), voltages, firstline_shown )
+            self._populate_list( language( 30102 ), voltages, firstline_shown )
         #add empty line at end in case there's another log file
         item = xbmcgui.ListItem()
         self.LISTCONTROL.addItem( item ) #this adds an empty line
@@ -245,7 +245,7 @@ class Main( xbmcgui.WindowXMLDialog ):
 
     def _parse_line( self, f, s_pos ):
         file_size = f.size()
-        read_size = 256
+        read_size = int( addon.getSetting( 'read_size' ) )
         if s_pos == 2:
             direction = -1
             offset = read_size
@@ -292,21 +292,21 @@ class Main( xbmcgui.WindowXMLDialog ):
 
 #run the script
 if ( __name__ == "__main__" ):
-    lw.log( ['script version %s started' % __addonversion__], xbmc.LOGNOTICE )
-    lw.log( ['debug logging set to %s' % __logdebug__], xbmc.LOGNOTICE )
-    xbmcgui.Window( 10000 ).setProperty( "speedfan.running",  "false" )
-    if xbmcgui.Window( 10000).getProperty( "speedfan.running" ) == "true":
+    lw.log( ['script version %s started' % addonversion], xbmc.LOGNOTICE )
+    lw.log( ['debug logging set to %s' % logdebug], xbmc.LOGNOTICE )
+#    xbmcgui.Window( 10000 ).setProperty( "speedfan.running",  "false" )
+    if xbmcgui.Window( 10000 ).getProperty( "speedfan.running" ) == "true":
         lw.log( ['script already running, aborting subsequent run attempts'] )
     else:
         xbmcgui.Window( 10000 ).setProperty( "speedfan.running",  "true" )
-        if (__addon__.getSetting('show_compact') == "true"):
-            transparency_image = "speedfan-panel-compact-" + str(int(round(float(__addon__.getSetting('transparency'))))) + ".png"
+        if (addon.getSetting('show_compact') == "true"):
+            transparency_image = "speedfan-panel-compact-" + str(int(round(float(addon.getSetting('transparency'))))) + ".png"
             xbmcgui.Window( 10000 ).setProperty( "speedfan.panel.compact",  transparency_image )
             #create a new object to get all the work done
-            w = Main( "speedfaninfo-compact.xml", __addonpath__ )
+            w = Main( "speedfaninfo-compact.xml", addonpath )
         else:
             #create a new object to get all the work done
-            w = Main( "speedfaninfo-main.xml", __addonpath__ )
+            w = Main( "speedfaninfo-main.xml", addonpath )
         #create and start a separate thread for the looping process that updates the window
         t1 = Thread( target=updateWindow,args=("thread 1", w) )
         t1.setDaemon( True )
