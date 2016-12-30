@@ -1,8 +1,9 @@
-import os, time, datetime
+import datetime, os, subprocess, time
 import xbmcaddon, xbmc, xbmcgui, xbmcvfs
 from threading import Thread
 from resources.common.xlogger import Logger
 from resources.common.fix_utf8 import smartUTF8
+from resources.common.fileops import popenWithTimeout
 
 ### get addon info and set globals
 addon        = xbmcaddon.Addon()
@@ -83,7 +84,13 @@ class Main( xbmcgui.WindowXMLDialog ):
 
     def _get_settings( self ):
         self.LISTCONTROL = self.getControl( 120 )
-        self.SHOWCOMPACT = addon.getSetting('show_compact')
+        self.SHOWCOMPACT = addon.getSetting( 'show_compact' )
+        if addon.getSetting( 'use_external_script' ) == 'true':
+            self.EXTERNALSCRIPT = addon.getSetting( 'external_script' )
+            self.EXTERNALTIMEOUT = int( addon.getSetting( 'external_timeout' ) )
+        else:
+            self.EXTERNALSCRIPT = ''
+            self.EXTERNALTIMEOUT = 0
         self.LOGINFO = []        
         for i in range( 3 ):
             log_info = {}
@@ -107,8 +114,9 @@ class Main( xbmcgui.WindowXMLDialog ):
         speeds = []
         voltages = []
         percents = []
+        others = []
         if first == '' or last == '':
-            return temps, speeds, voltages, percents
+            return temps, speeds, voltages, percents, others
         #pair up the heading with the value
         lw.log( ['pair up the heading with the value'] );
         for s_item, s_value in map( None, first.split( '\t' ), last.split( '\t' ) ):
@@ -138,14 +146,22 @@ class Main( xbmcgui.WindowXMLDialog ):
             elif item_type == "percent":
                 lw.log( ['put the information in the percent array'] );
                 percents.append( [item_text, s_value + '%'] )
-        lw.log( [temps, speeds, voltages, percents, 'ended parsing log, displaying results'] )
-        return temps, speeds, voltages, percents
+            elif item_type == "other":
+                lw.log( ['put the information in the other array'] );
+                others.append( [item_text + ":", s_value] )                
+        lw.log( [temps, speeds, voltages, percents, others, 'ended parsing log, displaying results'] )
+        return temps, speeds, voltages, percents, others
 
 
     def _populate_from_all_logs( self ):
         lw.log( ['reset the window to prep it for data'] )
         self.LISTCONTROL.reset()
         displayed_log = False
+        #if there is an external script defined, call it
+        if self.EXTERNALSCRIPT:
+            lw.log( ['trying to execute external script to generate log file'] )
+            result, loglines = popenWithTimeout( self.EXTERNALSCRIPT, self.EXTERNALTIMEOUT )
+            lw.log( loglines )
         for title, logfile in self._get_log_files():
             self.LOGFILE = logfile
             if title:
@@ -162,9 +178,9 @@ class Main( xbmcgui.WindowXMLDialog ):
             xbmc.executebuiltin( command )
 
                      
-    def _populate_from_log( self ):        
+    def _populate_from_log( self ):
         #get all this stuff into list info items for the window
-        temps, speeds, voltages, percents = self._parse_log()
+        temps, speeds, voltages, percents, others = self._parse_log()
         lw.log( ['starting to convert output for window'] )
         #add a fancy degree symbol to the temperatures
         for i in range(len(temps)):
@@ -201,6 +217,9 @@ class Main( xbmcgui.WindowXMLDialog ):
         lw.log( ['put in all the voltage information'] )
         if voltages:
             self._populate_list( language( 30102 ), voltages, firstline_shown )
+        lw.log( ['put in all the other information'] )
+        if others:
+            self._populate_list( language( 30105 ), others, firstline_shown )
         #add empty line at end in case there's another log file
         item = xbmcgui.ListItem()
         self.LISTCONTROL.addItem( item ) #this adds an empty line
@@ -208,7 +227,7 @@ class Main( xbmcgui.WindowXMLDialog ):
 
             
     def _populate_list( self, title, things, titlespace ):
-        #this takes an arbitrating list of readings and gets them into the ListItems
+        #this takes an arbitrary list of readings and gets them into the ListItems
         lw.log( ['create the list item for the title of the section'] ) 
         if titlespace:
             item = xbmcgui.ListItem()
@@ -294,7 +313,6 @@ class Main( xbmcgui.WindowXMLDialog ):
 if ( __name__ == "__main__" ):
     lw.log( ['script version %s started' % addonversion], xbmc.LOGNOTICE )
     lw.log( ['debug logging set to %s' % logdebug], xbmc.LOGNOTICE )
-#    xbmcgui.Window( 10000 ).setProperty( "speedfan.running",  "false" )
     if xbmcgui.Window( 10000 ).getProperty( "speedfan.running" ) == "true":
         lw.log( ['script already running, aborting subsequent run attempts'] )
     else:
