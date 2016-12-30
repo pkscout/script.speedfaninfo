@@ -123,8 +123,8 @@ class Main( xbmcgui.WindowXMLDialog ):
             item_type = s_item.split( '.' )[-1].rstrip().lower()
             item_text = os.path.splitext( s_item )[0].rstrip()
             #round the number, drop the decimal and then covert to a string
-            #skip the rounding for the voltage reading
-            if item_type == 'voltage':
+            #skip the rounding for the voltage and other readings
+            if item_type == 'voltage' or item_type == 'other':
                 s_value = s_value.rstrip()
             else:
                 try:

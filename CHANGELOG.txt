@@ -1,3 +1,6 @@
+v.0.7.5~beta2
+- excluded other sensor readings from number rounding
+
 v.0.7.5~beta1
 - added option to run external script to generate log file
 - added 'Other' option to sensor display
