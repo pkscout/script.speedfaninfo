@@ -1,4 +1,4 @@
-# v.0.3.5
+# v.0.3.6
 
 import subprocess, time
 try:
@@ -104,7 +104,7 @@ def popenWithTimeout( command, timeout ):
         log_lines.append( 'error finding external script, terminating' )
         return False, log_lines
     except Exception, e:
-        log_lines.append( 'unknown error while attempting to rename %s' % filename )
+        log_lines.append( 'unknown error while attempting to run %s' % command )
         log_lines.append( e )
         return False, log_lines
     for t in xrange( timeout * 4 ):
