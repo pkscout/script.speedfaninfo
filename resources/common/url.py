@@ -2,6 +2,8 @@
 
 import socket
 import requests as _requests
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+_requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
     
 
 class URL():
@@ -54,7 +56,7 @@ class URL():
         except _requests.exceptions.HTTPError, e:
             loglines.append( 'HTTP Error while downloading from ' + url )
             loglines.append( e )
-        except _requests.exceptions.RequestException, e:
+        except _requests.exceptions.RequestException as e:
             loglines.append( 'unknown error while downloading from ' + url )
             loglines.append( e )
         if urldata:
