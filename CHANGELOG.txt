@@ -1,3 +1,6 @@
+v.0.7.8~beta2
+- fix for problem with common library moving files
+
 v.0.7.8~beta1
 - changes for better compatibility when running script on non-Windows machine
 
