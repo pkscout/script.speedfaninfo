@@ -1,15 +1,15 @@
-import datetime, os, subprocess, time
-import xbmcaddon, xbmc, xbmcgui, xbmcvfs
+import datetime, os, time
+from kodi_six import xbmc, xbmcaddon, xbmcgui, xbmcvfs
+from kodi_six.utils import py2_encode, py2_decode
 from threading import Thread
 from resources.common.xlogger import Logger
-from resources.common.fix_utf8 import smartUTF8
 from resources.common.fileops import popenWithTimeout
 
 ### get addon info and set globals
 addon        = xbmcaddon.Addon()
 addonname    = addon.getAddonInfo( 'id' )
 addonversion = addon.getAddonInfo( 'version' )
-addonpath    = addon.getAddonInfo( 'path' ).decode( 'utf-8' )
+addonpath    = addon.getAddonInfo( 'path' )
 addonicon    = xbmc.translatePath( '%s/icon.png' % addonpath )
 language     = addon.getLocalizedString
 preamble     = '[SpeedFan Info]'
@@ -174,7 +174,7 @@ class Main( xbmcgui.WindowXMLDialog ):
         if displayed_log:
             self.setFocus( self.LISTCONTROL )
         else:
-            command = 'XBMC.Notification(%s, %s, %s, %s)' % ( smartUTF8( language( 30103 ) ), smartUTF8( language( 30104 ) ), 6000, smartUTF8( addonicon ) )
+            command = 'XBMC.Notification(%s, %s, %s, %s)' % ( language( 30103 ), language( 30104 ), 6000, addonicon )
             xbmc.executebuiltin( command )
 
                      
