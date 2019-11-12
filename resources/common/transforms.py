@@ -1,8 +1,8 @@
-#v.0.3.0
+#v.0.3.1
 
 import imghdr, os, re
 try:
-    import xbmc
+    from kodi_six import xbmc
     isXBMC = True
 except:
     import hashlib
@@ -10,15 +10,28 @@ except:
 
 def itemHash(item):
     if isXBMC:
-        return xbmc.getCacheThumbName(item).replace('.tbn', '')
+        try:
+            hash_item = xbmc.getCacheThumbName(item).replace('.tbn', '')
+        except TypeError:
+            hash_item = ''  
     else:
-        return hashlib.md5( item.encode() ).hexdigest()
+        try:
+            hash_item = hashlib.md5( item.encode() ).hexdigest()
+        except TypeError:
+            hash_item = ''  
+    return hash_item
     
 def itemHashwithPath(item, thepath):
     if isXBMC:
-        thumb = xbmc.getCacheThumbName(item).replace('.tbn', '')
+        try:
+            thumb = xbmc.getCacheThumbName(item).replace('.tbn', '')
+        except TypeError:
+            return ''  
     else:
-        thumb = hashlib.md5( item.encode() ).hexdigest()
+        try:
+            thumb = hashlib.md5( item.encode() ).hexdigest()
+        except TypeError:
+            return ''  
     thumbpath = os.path.join( thepath, thumb.encode( 'utf-8' ) )
     return thumbpath
     
@@ -34,7 +47,7 @@ def replaceWords( text, word_dic ):
     take a text and replace words that match a key in a dictionary with
     the associated value, return the changed text
     """
-    rc = re.compile('|'.join(map(re.escape, word_dic)))
+    rc = re.compile( '|'.join( map( re.escape, word_dic ) ) )
     def translate(match):
         return word_dic[match.group(0)]
     return rc.sub(translate, text)

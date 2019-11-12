@@ -1,15 +1,19 @@
-import datetime, os, subprocess, time
-import xbmcaddon, xbmc, xbmcgui, xbmcvfs
+import datetime, os, time
+from kodi_six import xbmc, xbmcaddon, xbmcgui, xbmcvfs
+from kodi_six.utils import py2_encode, py2_decode
 from threading import Thread
+try:
+    from itertools import izip_longest as _zip_longest
+except ImportError:
+    from itertools import zip_longest as _zip_longest
 from resources.common.xlogger import Logger
-from resources.common.fix_utf8 import smartUTF8
 from resources.common.fileops import popenWithTimeout
 
 ### get addon info and set globals
 addon        = xbmcaddon.Addon()
 addonname    = addon.getAddonInfo( 'id' )
 addonversion = addon.getAddonInfo( 'version' )
-addonpath    = addon.getAddonInfo( 'path' ).decode( 'utf-8' )
+addonpath    = addon.getAddonInfo( 'path' )
 addonicon    = xbmc.translatePath( '%s/icon.png' % addonpath )
 language     = addon.getLocalizedString
 preamble     = '[SpeedFan Info]'
@@ -119,7 +123,7 @@ class Main( xbmcgui.WindowXMLDialog ):
             return temps, speeds, voltages, percents, others
         #pair up the heading with the value
         lw.log( ['pair up the heading with the value'] );
-        for s_item, s_value in map( None, first.split( '\t' ), last.split( '\t' ) ):
+        for s_item, s_value in _zip_longest( first.split( '\t' ), last.split( '\t' ) ):
             item_type = s_item.split( '.' )[-1].rstrip().lower()
             item_text = os.path.splitext( s_item )[0].rstrip()
             #round the number, drop the decimal and then covert to a string
@@ -174,7 +178,7 @@ class Main( xbmcgui.WindowXMLDialog ):
         if displayed_log:
             self.setFocus( self.LISTCONTROL )
         else:
-            command = 'XBMC.Notification(%s, %s, %s, %s)' % ( smartUTF8( language( 30103 ) ), smartUTF8( language( 30104 ) ), 6000, smartUTF8( addonicon ) )
+            command = 'XBMC.Notification(%s, %s, %s, %s)' % ( language( 30103 ), language( 30104 ), 6000, addonicon )
             xbmc.executebuiltin( command )
 
                      
@@ -263,6 +267,7 @@ class Main( xbmcgui.WindowXMLDialog ):
 
 
     def _parse_line( self, f, s_pos ):
+        lw.log( ['parsing line'] )
         file_size = f.size()
         read_size = int( addon.getSetting( 'read_size' ) )
         if s_pos == 2:
@@ -299,7 +304,7 @@ class Main( xbmcgui.WindowXMLDialog ):
         lw.log( ['trying to open logfile ' + self.LOGFILE] )
         try:
             f = xbmcvfs.File( self.LOGFILE )
-        except Exception, e:
+        except Exception as e:
             lw.log( ['unexpected error when reading log file', e], xbmc.LOGERROR )
             return ('', '')
         lw.log( ['opened logfile ' + self.LOGFILE] )
