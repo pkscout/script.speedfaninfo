@@ -1,18 +1,19 @@
-<addon id="script.speedfaninfo" name="SpeedFan Information Display" provider-name="pkscout" version="0.7.9~beta2">
+<addon id="script.speedfaninfo" name="SpeedFan Information Display" provider-name="pkscout" version="1.0.0~beta1">
 	<requires>
-		<import addon="xbmc.python" version="2.19.0" />
-		<import addon="xbmc.addon" version="15.0.0" />
+		<import addon="xbmc.python" version="2.25.0" />
+		<import addon="xbmc.addon" version="17.0.0" />
+		<import addon="script.module.kodi-six" version="0.0.3" />
+        <import addon="script.module.future" version="0.16.0.4" />
 	</requires>
 	<extension library="default.py" point="xbmc.python.script">
 		<provides>executable</provides>
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<news>
-v.0.7.9~beta2
-- converted language files to current format for forward compatability
-
-v.0.7.9~beta1
+v.1.0.0
 - updated icon
+- converted language files to current format for forward compatability
+- Python 2/3 compatibility
 		</news>
 		<summary lang="af_ZA">Vertoon inligting van jou SpeedFan Aantekenings.</summary>
 		<summary lang="be_BY">Display information from your SpeedFan log.</summary>
