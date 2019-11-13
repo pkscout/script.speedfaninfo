@@ -8,6 +8,8 @@ except ImportError:
     from itertools import zip_longest as _zip_longest
 from resources.common.xlogger import Logger
 from resources.common.fileops import popenWithTimeout
+from resources.common.kodisettings import getSettingBool, getSettingInt, getSettingNumber, getSettingString
+
 
 ### get addon info and set globals
 addon        = xbmcaddon.Addon()
@@ -34,10 +36,10 @@ def updateWindow( name, w ):
     #this is the worker thread that updates the window information every w seconds
     #this strange looping exists because I didn't want to sleep the thread for very long
     #as time.sleep() keeps user input from being acted upon
-    delay = addon.getSetting( 'update_delay' )
+    delay = getSettingInt( addon, 'update_delay', default=30 )
     while windowopen and (not xbmc.abortRequested):
         #start counting up to the delay set in the preference and sleep for one second
-        for i in range( int( delay ) ):
+        for i in range( delay ):
             #as long as the window is open, keep sleeping
             if windowopen:
                 time.sleep(1)
@@ -88,10 +90,12 @@ class Main( xbmcgui.WindowXMLDialog ):
 
     def _get_settings( self ):
         self.LISTCONTROL = self.getControl( 120 )
-        self.SHOWCOMPACT = addon.getSetting( 'show_compact' )
-        if addon.getSetting( 'use_external_script' ) == 'true':
-            self.EXTERNALSCRIPT = addon.getSetting( 'external_script' )
-            self.EXTERNALTIMEOUT = int( addon.getSetting( 'external_timeout' ) )
+        self.SHOWCOMPACT = getSettingBool( addon, 'show_compact' )
+        self.TEMPSCALE = getSettingString( addon, 'temp_scale' )
+        self.READSIZE = getSettingInt( addon, 'read_size' )
+        if getSettingBool( addon, 'use_external_script' ):
+            self.EXTERNALSCRIPT = getSettingString( addon, 'external_script' )
+            self.EXTERNALTIMEOUT = getSettingInt( addon, 'external_timeout' )
         else:
             self.EXTERNALSCRIPT = ''
             self.EXTERNALTIMEOUT = 0
@@ -103,9 +107,9 @@ class Main( xbmcgui.WindowXMLDialog ):
                 log_info['use_log'] = 'true'
             else:
                 log_num = str( i + 1 )
-                log_info['use_log'] = addon.getSetting( 'use_log' + log_num )
-            log_info['loc'] = addon.getSetting( 'log_location' + log_num )
-            log_info['title'] = addon.getSetting( 'log_title' + log_num )
+                log_info['use_log'] = getSettingString( addon, 'use_log' + log_num )
+            log_info['loc'] = getSettingString( addon, 'log_location' + log_num )
+            log_info['title'] = getSettingString( addon, 'log_title' + log_num )
             self.LOGINFO.append( log_info )
 
 
@@ -137,7 +141,7 @@ class Main( xbmcgui.WindowXMLDialog ):
                     s_value = str( int( round( float( s_value.rstrip().replace(',', '.') ) ) ) )
             if item_type == "temp":
                 lw.log( ['put the information in the temperature array'] )
-                if addon.getSetting( 'temp_scale' ) == 'Celcius':
+                if self.TEMPSCALE == 'Celcius':
                     temps.append( [item_text + ':', s_value + 'C'] )
                 else:
                     temps.append( [item_text + ':', str( int( round( ( float( s_value ) * 1.8 ) + 32 ) ) ) + 'F'] ) 
@@ -240,7 +244,7 @@ class Main( xbmcgui.WindowXMLDialog ):
         item.setProperty( 'istitle','true' )
         self.LISTCONTROL.addItem( item )
         #now add all the data (we want two columns in full mode and one column for compact)
-        if self.SHOWCOMPACT == "true":
+        if self.SHOWCOMPACT:
             lw.log( ['add all the data to the one column format'] )
             for onething in things:
                     item = xbmcgui.ListItem( label=onething[0],label2='' )
@@ -269,7 +273,7 @@ class Main( xbmcgui.WindowXMLDialog ):
     def _parse_line( self, f, s_pos ):
         lw.log( ['parsing line'] )
         file_size = f.size()
-        read_size = int( addon.getSetting( 'read_size' ) )
+        read_size = self.READSIZE
         if s_pos == 2:
             direction = -1
             offset = read_size
@@ -325,9 +329,9 @@ if ( __name__ == "__main__" ):
         lw.log( ['script already running, aborting subsequent run attempts'] )
     else:
         xbmcgui.Window( 10000 ).setProperty( "speedfan.running",  "true" )
-        if (addon.getSetting('show_compact') == "true"):
-            transparency_image = "speedfan-panel-compact-" + str(int(round(float(addon.getSetting('transparency'))))) + ".png"
-            xbmcgui.Window( 10000 ).setProperty( "speedfan.panel.compact",  transparency_image )
+        if getSettingBool( addon, 'show_compact' ):
+            transparency_image = 'speedfan-panel-compact-%s.png' % getSettingString( addon, 'transparency', default='70' )
+            xbmcgui.Window( 10000 ).setProperty( 'speedfan.panel.compact',  transparency_image )
             #create a new object to get all the work done
             w = Main( "speedfaninfo-compact.xml", addonpath )
         else:
