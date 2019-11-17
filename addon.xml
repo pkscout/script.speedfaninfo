@@ -16,6 +16,9 @@ v.1.0.0
 - updated for new method of retrieving preferences
 - updated icon
 		</news>
+		<assets>
+        	<icon>resources/icon.png</icon>
+        </assets>
 		<summary lang="af_ZA">Vertoon inligting van jou SpeedFan Aantekenings.</summary>
 		<summary lang="be_BY">Display information from your SpeedFan log.</summary>
 		<summary lang="bg_BG">Показва информация от вашия SpeedFan дневник.</summary>
@@ -77,8 +80,8 @@ v.1.0.0
 		<language />
 		<platform>all</platform>
 		<license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-		<forum>http://forum.xbmc.org/showthread.php?p=1014479</forum>
-		<website>http://wiki.xbmc.org/index.php?title=Add-on:SpeedFan_Information_Display</website>
+		<forum>https://forum.kodi.tv/showthread.php?tid=122481</forum>
+		<website>https://kodi.wiki/view/Add-on:SpeedFan_Information_Display</website>
 		<email>speedfaninfo.xbmc@gmail.com</email>
 		<source>https://github.com/pkscout/script.speedfaninfo</source>
 	</extension>
