@@ -17,7 +17,7 @@ v.1.0.0
 - updated icon
 		</news>
 		<assets>
-        	<icon>resources/icon.png</icon>
+        	<icon>icon.png</icon>
         </assets>
 		<summary lang="af_ZA">Vertoon inligting van jou SpeedFan Aantekenings.</summary>
 		<summary lang="be_BY">Display information from your SpeedFan log.</summary>
