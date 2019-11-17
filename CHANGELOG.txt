@@ -1,10 +1,8 @@
-v.1.0.0~beta2
-updated for new method of retrieving preferences
-
-v.1.0.0~beta1
-- updated icon
-- converted language files to current format for forward compatability
+v.1.0.0
 - Python 2/3 compatibility
+- converted language files to current format for forward compatability
+- updated for new method of retrieving preferences
+- updated icon
 
 v.0.7.8
 - fix for problem with common library moving files
