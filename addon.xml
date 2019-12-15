@@ -77,9 +77,8 @@ v.1.0.0
 		<description lang="sk_SK">Rozoberá a zobrazuje informácie zo SpeedFan logu. Síce tento doplnok funguje na všetkých platformách, SpeedFan funguje len na Windows, a preto je tento doplnok určený užívateľom XBMC na Windows. Prosím prečítajte readme.txt aby ste sa dozvedeli ako nastaviť SpeedFan log tak, aby ho tento doplnok vedel správne rozoberať.</description>
 		<description lang="sv_SE">Analyserar och visar information från SpeedFan loggen. Trots att detta tillägg fungerar på alla plattformar, fungerar SpeedFan endast på Windows, så det är optimerat för folk som använder XBMC på Windows. Läs readme.txt för mer information hur du konfigurerar din SpeedFan logg så att tillägget kan analysera det riktigt.</description>
 		<description lang="zh_CN">分析和显示从SpeedFan日志获取的信息。由于SpeedFan只有Windows版，因此本插件仅用于运行在Windows平台的XBMC。请阅读readme.txt中关于如何配置SpeedFan日志以使本插件能正确分析处理的相关说明。</description>
-		<language />
 		<platform>all</platform>
-		<license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+		<license>GPL-2.0-only</license>
 		<forum>https://forum.kodi.tv/showthread.php?tid=122481</forum>
 		<website>https://kodi.wiki/view/Add-on:SpeedFan_Information_Display</website>
 		<email>speedfaninfo.xbmc@gmail.com</email>
