@@ -1,15 +1,12 @@
 import datetime, os, time
 from kodi_six import xbmc, xbmcaddon, xbmcgui, xbmcvfs
-from kodi_six.utils import py2_encode, py2_decode
 from threading import Thread
 try:
     from itertools import izip_longest as _zip_longest
 except ImportError:
     from itertools import zip_longest as _zip_longest
 from resources.common.xlogger import Logger
-from resources.common.fileops import popenWithTimeout
-from resources.common.kodisettings import getSettingBool, getSettingInt, getSettingNumber, getSettingString
-
+from resources.common.kodisettings import getSettingBool, getSettingInt, getSettingString
 
 ### get addon info and set globals
 addon        = xbmcaddon.Addon()
@@ -22,7 +19,6 @@ preamble     = '[SpeedFan Info]'
 logdebug     = addon.getSetting( 'logging' ) 
 
 lw = Logger( preamble = preamble, logdebug = logdebug )
-
 
 #global used to tell the worker thread the status of the window
 windowopen   = True
@@ -54,7 +50,8 @@ def updateWindow( name, w ):
 
 class Main( xbmcgui.WindowXMLDialog ): 
     
-    def __init__( self, *args, **kwargs ): pass
+    def __init__( self, *args, **kwargs ):
+        pass
 
         
     def onInit( self ):
@@ -93,12 +90,6 @@ class Main( xbmcgui.WindowXMLDialog ):
         self.SHOWCOMPACT = getSettingBool( addon, 'show_compact' )
         self.TEMPSCALE = getSettingString( addon, 'temp_scale' )
         self.READSIZE = getSettingInt( addon, 'read_size' )
-        if getSettingBool( addon, 'use_external_script' ):
-            self.EXTERNALSCRIPT = getSettingString( addon, 'external_script' )
-            self.EXTERNALTIMEOUT = getSettingInt( addon, 'external_timeout' )
-        else:
-            self.EXTERNALSCRIPT = ''
-            self.EXTERNALTIMEOUT = 0
         self.LOGINFO = []        
         for i in range( 3 ):
             log_info = {}
@@ -165,11 +156,6 @@ class Main( xbmcgui.WindowXMLDialog ):
         lw.log( ['reset the window to prep it for data'] )
         self.LISTCONTROL.reset()
         displayed_log = False
-        #if there is an external script defined, call it
-        if self.EXTERNALSCRIPT:
-            lw.log( ['trying to execute external script to generate log file'] )
-            result, loglines = popenWithTimeout( self.EXTERNALSCRIPT, self.EXTERNALTIMEOUT )
-            lw.log( loglines )
         for title, logfile in self._get_log_files():
             self.LOGFILE = logfile
             if title:
