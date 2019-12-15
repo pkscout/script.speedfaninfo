@@ -197,7 +197,7 @@ class Main( xbmcgui.WindowXMLDialog ):
                 percent_value = ''
                 for thepercent in percents:
                     if (thespeed[0][:-1] == thepercent[0]):
-                        lw.log( ['matched speed ' + thespeed[0][:-1] + ' with percent ' + thepercents[0]] )
+                        lw.log( ['matched speed ' + thespeed[0][:-1] + ' with percent ' + thepercent[0]] )
                         percent_match = True
                         percent_value = thepercent[1]
                 if percent_match:
