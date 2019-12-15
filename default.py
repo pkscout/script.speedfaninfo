@@ -177,35 +177,36 @@ class Main( xbmcgui.WindowXMLDialog ):
         temps, speeds, voltages, percents, others = self._parse_log()
         lw.log( ['starting to convert output for window'] )
         #add a fancy degree symbol to the temperatures
-        for i in range(len(temps)):
-              temps[i][1] = temps[i][1][:-1] + u'\N{DEGREE SIGN}' + temps[i][1][-1:]
+        formatted_temps = []
+        for temp in temps:
+            formatted_temps.append( [temp[0], temp[1][:-1] + u'\N{DEGREE SIGN}' + temp[1][-1:]] )
         #now parse all the data and get it into ListIems for display on the page
         #this allows for a line space *after* the first one so the page looks pretty
         firstline_shown = False
         lw.log( ['put in all the temperature information'] )
-        if temps:
-            self._populate_list( language( 30100 ), temps, firstline_shown )
+        if formatted_temps:
+            self._populate_list( language( 30100 ), formatted_temps, firstline_shown )
             firstline_shown = True
         lw.log( ['put in all the speed information (including percentages)'] )
         if speeds:
             lw.log( ['adding the percentages to the end of the speeds'] )
             en_speeds = []
-            for i in range( len( speeds ) ):
+            for thespeed in speeds:
                 #if there is a matching percentage, add it to the end of the speed
                 percent_match = False
                 percent_value = ''
-                for j in range( len( percents ) ):
-                    if (speeds[i][0][:-1] == percents[j][0]):
-                        lw.log( ['matched speed ' + speeds[i][0][:-1] + ' with percent ' + percents[j][0]] )
+                for thepercent in percents:
+                    if (thespeed[0][:-1] == thepercent[0]):
+                        lw.log( ['matched speed ' + thespeed[0][:-1] + ' with percent ' + thepercents[0]] )
                         percent_match = True
-                        percent_value = percents[j][1]
+                        percent_value = thepercent[1]
                 if percent_match:
-                    if speeds[i][1] == '0rpm':
-                        en_speeds.append( (speeds[i][0], percent_value) )
+                    if thespeed[1] == '0rpm':
+                        en_speeds.append( (thespeed[0], percent_value) )
                     else:
-                        en_speeds.append( (speeds[i][0], speeds [i][1] + ' (' + percent_value + ')') )
+                        en_speeds.append( (thespeed[0], thespeed[1] + ' (' + percent_value + ')') )
                 else:
-                    en_speeds.append( (speeds[i][0], speeds [i][1]) )
+                    en_speeds.append( (thespeed[0], thespeed[1]) )
             self._populate_list( language( 30101 ), en_speeds, firstline_shown )
             firstline_shown = True
         lw.log( ['put in all the voltage information'] )
@@ -276,7 +277,7 @@ class Main( xbmcgui.WindowXMLDialog ):
             try:
                 if read_str[offset - 1] == '\n':
                     read_str = read_str[0:-1]
-            except:
+            except IndexError:
                 pass
             lines = read_str.split('\n')
             if len( lines ) > 1:  # Got a complete line
