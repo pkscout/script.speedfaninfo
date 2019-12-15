@@ -16,7 +16,7 @@ addonpath    = addon.getAddonInfo( 'path' )
 addonicon    = xbmc.translatePath( '%s/icon.png' % addonpath )
 language     = addon.getLocalizedString
 preamble     = '[SpeedFan Info]'
-logdebug     = addon.getSetting( 'logging' ) 
+logdebug     = addon.getSetting( 'logging' )
 
 lw = Logger( preamble = preamble, logdebug = logdebug )
 
@@ -48,12 +48,12 @@ def updateWindow( name, w ):
             w._populate_from_all_logs()
 
 
-class Main( xbmcgui.WindowXMLDialog ): 
-    
+class Main( xbmcgui.WindowXMLDialog ):
+
     def __init__( self, *args, **kwargs ):
         pass
 
-        
+
     def onInit( self ):
         self._get_settings()
         self._populate_from_all_logs()
@@ -90,7 +90,7 @@ class Main( xbmcgui.WindowXMLDialog ):
         self.SHOWCOMPACT = getSettingBool( addon, 'show_compact' )
         self.TEMPSCALE = getSettingString( addon, 'temp_scale' )
         self.READSIZE = getSettingInt( addon, 'read_size' )
-        self.LOGINFO = []        
+        self.LOGINFO = []
         for i in range( 3 ):
             log_info = {}
             if i == 0:
@@ -135,7 +135,7 @@ class Main( xbmcgui.WindowXMLDialog ):
                 if self.TEMPSCALE == 'Celcius':
                     temps.append( [item_text + ':', s_value + 'C'] )
                 else:
-                    temps.append( [item_text + ':', str( int( round( ( float( s_value ) * 1.8 ) + 32 ) ) ) + 'F'] ) 
+                    temps.append( [item_text + ':', str( int( round( ( float( s_value ) * 1.8 ) + 32 ) ) ) + 'F'] )
             elif item_type == "speed":
                 lw.log( ['put the information in the speed array'] )
                 speeds.append( [item_text + ':', s_value + 'rpm'] )
@@ -147,7 +147,7 @@ class Main( xbmcgui.WindowXMLDialog ):
                 percents.append( [item_text, s_value + '%'] )
             elif item_type == "other":
                 lw.log( ['put the information in the other array'] );
-                others.append( [item_text + ":", s_value] )                
+                others.append( [item_text + ":", s_value] )
         lw.log( [temps, speeds, voltages, percents, others, 'ended parsing log, displaying results'] )
         return temps, speeds, voltages, percents, others
 
@@ -171,7 +171,7 @@ class Main( xbmcgui.WindowXMLDialog ):
             command = 'XBMC.Notification(%s, %s, %s, %s)' % ( language( 30103 ), language( 30104 ), 6000, addonicon )
             xbmc.executebuiltin( command )
 
-                     
+
     def _populate_from_log( self ):
         #get all this stuff into list info items for the window
         temps, speeds, voltages, percents, others = self._parse_log()
@@ -220,10 +220,10 @@ class Main( xbmcgui.WindowXMLDialog ):
         self.LISTCONTROL.addItem( item ) #this adds an empty line
         lw.log( ['completed putting information into lists, displaying window'] )
 
-            
+
     def _populate_list( self, title, things, titlespace ):
         #this takes an arbitrary list of readings and gets them into the ListItems
-        lw.log( ['create the list item for the title of the section'] ) 
+        lw.log( ['create the list item for the title of the section'] )
         if titlespace:
             item = xbmcgui.ListItem()
             self.LISTCONTROL.addItem( item ) #this adds an empty line
