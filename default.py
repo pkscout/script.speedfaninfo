@@ -1,4 +1,4 @@
-import datetime, os, time
+import datetime, os
 from kodi_six import xbmc, xbmcaddon, xbmcgui, xbmcvfs
 from threading import Thread
 try:
@@ -29,20 +29,13 @@ ACTION_BACK = 92
 
 
 def updateWindow( name, w ):
-    #this is the worker thread that updates the window information every w seconds
-    #this strange looping exists because I didn't want to sleep the thread for very long
-    #as time.sleep() keeps user input from being acted upon
     delay = getSettingInt( addon, 'update_delay', default=30 )
-    while windowopen and (not xbmc.abortRequested):
-        #start counting up to the delay set in the preference and sleep for one second
+    while windowopen and (not xbmc.Monitor().abortRequested):
         for i in range( delay ):
-            #as long as the window is open, keep sleeping
             if windowopen:
-                time.sleep(1)
-            #otherwise drop out of the loop so we can exit the thread
+                xbmc.sleep(1000)
             else:
             	break
-        #as long as the window is open grab new data and refresh the window
         if windowopen:
             lw.log( ['window is still open, updating the window with new data'] );
             w._populate_from_all_logs()
