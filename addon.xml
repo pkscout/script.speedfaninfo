@@ -13,6 +13,7 @@
 v.1.0.0
 - Python 2/3 compatibility
 - converted language files to current format for forward compatability
+- fix for addon not quitting properly if running when Kodi attempts to exit
 - updated for new method of retrieving preferences
 - updated icon
 		</news>
