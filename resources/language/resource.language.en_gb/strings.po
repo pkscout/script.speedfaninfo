@@ -44,6 +44,15 @@ msgctxt "#30006"
 msgid "Log File Location"
 msgstr ""
 
+msgctxt "#30007"
+msgid "Celcius"
+msgstr ""
+
+msgctxt "#30008"
+msgid "Fahrenheit"
+msgstr ""
+
+
 # empty strings from id 30007 to 30009
 
 msgctxt "#30010"
@@ -82,19 +91,7 @@ msgctxt "#30031"
 msgid "Set Line Read Size"
 msgstr ""
 
-msgctxt "#30032"
-msgid "    External Script"
-msgstr ""
-
-msgctxt "#30033"
-msgid "    Timeout (in secs)"
-msgstr ""
-
-msgctxt "#30034"
-msgid "Use External Script to Generate Log File"
-msgstr ""
-
-# empty strings from 30034 to 30099
+# empty strings from 30032 to 30099
 
 msgctxt "#30100"
 msgid "Temperature Information"
@@ -119,7 +116,6 @@ msgstr ""
 msgctxt "#30105"
 msgid "Other Information"
 msgstr ""
-
 
 msgctxt "#32209"
 msgid "Enable debug logging"
