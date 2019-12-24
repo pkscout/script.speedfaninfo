@@ -15,9 +15,9 @@ addonpath    = addon.getAddonInfo( 'path' )
 addonicon    = xbmc.translatePath( '%s/icon.png' % addonpath )
 language     = addon.getLocalizedString
 preamble     = '[SpeedFan Info]'
-logdebug     = addon.getSetting( 'logging' )
+logdebug     = getSettingBool( addon, 'logging', default=False )
 
-lw = Logger( preamble = preamble, logdebug = logdebug )
+lw = Logger( preamble=preamble, logdebug=logdebug )
 
 #global used to tell the worker thread the status of the window
 windowopen   = True
