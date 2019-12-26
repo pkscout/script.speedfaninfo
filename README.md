@@ -1,9 +1,10 @@
 # SpeedFan Information Display
 
 ## Information
+SpeedFan Information Display is a Kodi addon that shows you current log information from the Windows program SpeedFan (or any other program that outputs a compatible log file) either as a full window or a compact window on the side of the screen.
 
 ### Getting SpeedFan
-SpeedFan is available at <http://www.almico.com/speedfan.php>
+SpeedFan is a Windows program and is available at <http://www.almico.com/speedfan.php>
 
 ### Compatibility
 This plugin has been tested with SpeedFan 4.44. It should work with any version of SpeedFan that outputs the log file in the same format as 4.44. The add-on will run on any platform using Kodi Krypton or later (although testing and active support is only done on the current production version of Kodi), but SpeedFan is a Windows only program.
