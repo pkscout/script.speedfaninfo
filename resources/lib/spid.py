@@ -35,7 +35,7 @@ class SpeedFanWindow( xbmcgui.WindowXMLDialog ):
         if action == self.ACTION_PREVIOUS_MENU or action == self.ACTION_BACK:
             lw.log( ['user initiated previous menu or back, telling addon to quit'] )
             self.KEEPRUNNING = False
-    
+
 
     def KeepRunning( self ):
         return self.KEEPRUNNING

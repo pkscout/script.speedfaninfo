@@ -60,7 +60,7 @@ When enabled, if you have Kodi logging set the DEBUG you will get a very verbose
 ## Tips and Tricks
 
 ### Setting a Keyboard Shortcut
-If you are using the compact display, you will probably want to assign a keyboard shortcut to launch SpeedFanInfo (and then map that to a key on your remote). To do that you need to add a custom key mapping. Information on key mapping is available at http://wiki.xbmc.org/index.php?title=Keymap Here's an example of assigning SpeedFanInfo to launch when you press F1.
+If you are using the compact display, you will probably want to assign a keyboard shortcut to launch SpeedFanInfo (and then map that to a key on your remote). To do that you need to add a custom key mapping. Information on key mapping is available at <http://wiki.xbmc.org/index.php?title=Keymap>. Here's an example of assigning SpeedFanInfo to launch when you press F1.
 
 ```xml
     <keymap>
