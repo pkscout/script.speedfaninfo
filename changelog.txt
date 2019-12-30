@@ -1,3 +1,6 @@
+v.1.1.0~beta2
+- moved common libs to lib folder and eliminated unused common libraries
+
 v.1.1.0~beta1
 - SpeedFan Information Display no longer uses python threads to accomplish window updates
 - changed XBMC to Kodi in addon description
