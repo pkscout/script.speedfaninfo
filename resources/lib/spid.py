@@ -4,8 +4,8 @@ try:
     from itertools import izip_longest as _zip_longest
 except ImportError:
     from itertools import zip_longest as _zip_longest
-from resources.common.xlogger import Logger
-from resources.common.kodisettings import getSettingBool, getSettingInt, getSettingString
+from resources.lib.xlogger import Logger
+from resources.lib.kodisettings import getSettingBool, getSettingInt, getSettingString
 
 addon        = xbmcaddon.Addon()
 addonname    = addon.getAddonInfo( 'id' )
