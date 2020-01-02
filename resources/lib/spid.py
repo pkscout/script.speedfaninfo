@@ -307,8 +307,8 @@ class Main():
         lw.log( ['opened logfile ' + self.LOGFILE] )
         #get the first and last line of the log file
         #the first line has the header information, and the last line has the last log entry
-        first = self._parse_line( f, 0 )
-        last = self._parse_line( f, 2 )
+        first_line = self._parse_line( f, 0 )
+        last_line = self._parse_line( f, 2 )
         f.close()
-        lw.log( ['first line: ' + first, 'last line: ' + last] )
-        return first, last
+        lw.log( ['first line: ' + first_line, 'last line: ' + last_line] )
+        return first_line, last_line
