@@ -54,9 +54,9 @@ class Main():
         self._init_window()
         self._populate_from_all_logs()
         if self.FOUNDLOGFILE:
-            while not xbmc.Monitor().abortRequested() and self.SPEEDFANWINDOW.KeepRunning():
+            while not self.MONITOR.abortRequested() and self.SPEEDFANWINDOW.KeepRunning():
                 for i in range( self.DELAY ):
-                    if xbmc.Monitor().waitForAbort( 1 ) or not self.SPEEDFANWINDOW.KeepRunning():
+                    if self.MONITOR.waitForAbort( 1 ) or not self.SPEEDFANWINDOW.KeepRunning():
                         break
                 self._populate_from_all_logs()
         self.SPEEDFANWINDOW.close()
@@ -96,6 +96,7 @@ class Main():
     def _init_vars( self ):
         self.GUIWINDOW = xbmcgui.Window( 10000 )
         self.FOUNDLOGFILE = False
+        self.MONITOR = xbmc.Monitor()
 
 
     def _init_window( self ):
