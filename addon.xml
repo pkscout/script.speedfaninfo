@@ -1,4 +1,4 @@
-<addon id="script.speedfaninfo" name="SpeedFan Information Display" provider-name="pkscout" version="11.1.0">
+<addon id="script.speedfaninfo" name="SpeedFan Information Display" provider-name="pkscout" version="1.1.100">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
 		<import addon="xbmc.addon" version="17.0.0" />
@@ -9,7 +9,7 @@
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<news>
-v.11.1.0
+v.1.1.100
 - Matrix specific python and version numbering
 - SpeedFan Information Display no longer uses python threads to accomplish window updates
 - moved common libs to lib folder and eliminated unused common libraries
