@@ -1,3 +1,6 @@
+v.1.1.1~beta1
+- changing in logging to accomodate new logging requirements for Kodi 19
+
 v.1.1.0
 - SpeedFan Information Display no longer uses python threads to accomplish window updates
 - moved common libs to lib folder and eliminated unused common libraries
