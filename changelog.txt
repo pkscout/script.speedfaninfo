@@ -1,3 +1,6 @@
+v.1.1.2~beta1
+- code refactoring
+
 v.1.1.1
 - changes in logging to accommodate new logging requirements for Kodi 19
 
