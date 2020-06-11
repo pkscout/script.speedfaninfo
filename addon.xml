@@ -1,7 +1,7 @@
 <addon id="script.speedfaninfo" name="SpeedFan Information Display" provider-name="pkscout" version="1.1.102">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
-		<import addon="script.module.kodi-six" version="0.0.3" />
+		<import addon="script.module.kodi-six" version="0.1.3.1" />
 	</requires>
 	<extension library="default.py" point="xbmc.python.script">
 		<provides>executable</provides>
