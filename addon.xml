@@ -1,4 +1,4 @@
-<addon id="script.speedfaninfo" name="SpeedFan Information Display" provider-name="pkscout" version="1.1.2~beta1">
+<addon id="script.speedfaninfo" name="SpeedFan Information Display" provider-name="pkscout" version="1.1.2">
 	<requires>
 		<import addon="xbmc.python" version="2.26.0" />
 		<import addon="script.module.kodi-six" version="0.0.3" />
@@ -8,7 +8,7 @@
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<news>
-v.1.1.2~beta1
+v.1.1.2
 - code refactoring
 		</news>
 		<assets>
