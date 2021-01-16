@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: script.speedfaninfo\n"
 "Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
-"POT-Creation-Date: 2014-10-26 17:05+0000\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: 2017-10-11 08:00+0300\n"
 "Last-Translator: A. Dambledore\n"
 "Language-Team: Eng2Heb\n"
@@ -45,6 +45,14 @@ msgctxt "#30006"
 msgid "Log File Location"
 msgstr "רשום ביומן מיקום קובץ"
 
+msgctxt "#30007"
+msgid "Celcius"
+msgstr ""
+
+msgctxt "#30008"
+msgid "Fahrenheit"
+msgstr ""
+
 # empty strings from id 30007 to 30009
 msgctxt "#30010"
 msgid " Additional Logs"
@@ -80,18 +88,6 @@ msgctxt "#30031"
 msgid "Set Line Read Size"
 msgstr "הגדר גודל קריאת שורה"
 
-msgctxt "#30032"
-msgid "    External Script"
-msgstr "    סקריפט חיצוני"
-
-msgctxt "#30033"
-msgid "    Timeout (in secs)"
-msgstr "    זמן קצוב (שניות)"
-
-msgctxt "#30034"
-msgid "Use External Script to Generate Log File"
-msgstr "תשתמש בסקריפט חיצוני כדי ליצור קובץ יומן רישום"
-
 # empty strings from 30034 to 30099
 msgctxt "#30100"
 msgid "Temperature Information"
@@ -120,3 +116,15 @@ msgstr "מידע נוסף"
 msgctxt "#32209"
 msgid "Enable debug logging"
 msgstr "הפעל רישום של איתור באגים"
+
+#~ msgctxt "#30032"
+#~ msgid "    External Script"
+#~ msgstr "    סקריפט חיצוני"
+
+#~ msgctxt "#30033"
+#~ msgid "    Timeout (in secs)"
+#~ msgstr "    זמן קצוב (שניות)"
+
+#~ msgctxt "#30034"
+#~ msgid "Use External Script to Generate Log File"
+#~ msgstr "תשתמש בסקריפט חיצוני כדי ליצור קובץ יומן רישום"
