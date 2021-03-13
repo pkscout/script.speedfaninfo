@@ -1,4 +1,7 @@
-v.1.1.2~beta1
+v.1.2.0
+- fix for logging issue with Python3
+
+v.1.1.2
 - code refactoring
 
 v.1.1.1
