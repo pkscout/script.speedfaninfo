@@ -31,10 +31,10 @@ class Main():
 
     def __init__( self ):
         self._init_vars()
-        self.LW.log( ['script version %s started' % self.SETTINGS['ADDONVERSION']], xbmc.LOGNOTICE )
-        self.LW.log( ['debug logging set to %s' % self.SETTINGS['debug']], xbmc.LOGNOTICE )
+        self.LW.log( ['script version %s started' % self.SETTINGS['ADDONVERSION']], xbmc.LOGINFO )
+        self.LW.log( ['debug logging set to %s' % self.SETTINGS['debug']], xbmc.LOGINFO )
         if self.GUIWINDOW.getProperty( 'SpeedFan.Running' ) == "True":
-            self.LW.log( ['script already running, aborting subsequent run attempts'], xbmc.LOGNOTICE )
+            self.LW.log( ['script already running, aborting subsequent run attempts'], xbmc.LOGINFO )
             return
         self.GUIWINDOW.setProperty( 'SpeedFan.Running',  'True' )
         self._init_window()
@@ -47,7 +47,7 @@ class Main():
                 self._populate_from_all_logs()
         self.SPEEDFANWINDOW.close()
         self.GUIWINDOW.setProperty( 'SpeedFan.Running',  'False' )
-        self.LW.log( ['script version %s stopped' % self.SETTINGS['ADDONVERSION']], xbmc.LOGNOTICE )
+        self.LW.log( ['script version %s stopped' % self.SETTINGS['ADDONVERSION']], xbmc.LOGINFO )
 
 
     def _get_log_files( self ):
