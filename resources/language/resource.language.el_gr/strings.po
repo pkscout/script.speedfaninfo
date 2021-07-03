@@ -16,6 +16,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgctxt "Addon Summary"
+msgid "Display information from your SpeedFan log."
+msgstr "Προβολή πληροφοριών από το αρχείο καταγραφής του SpeedFan."
+
+msgctxt "Addon Description"
+msgid "Parses and displays information from the SpeedFan log. While this plugin works on any platform, SpeedFan only works on Windows, so it is optimally built for people using Kodi on Windows. Please see readme.txt for information on how to configure your SpeedFan log so that the plugin can parse it properly."
+msgstr "Αναλύει και προβάλλει πληροφορίες από το αρχείο καταγραφής του SpeedFan. Ενώ αυτό το plugin δουλεύει σε οποιαδήποτε πλατφόρμα, το SpeedFan δουλεύει μόνο σε Windows, συνεπώς είναι φτιαγμένο για ανθρώπους που χρησιμοποιούν το Kodi σε Windows. Δείτε το readme.txt για πληροφορίες σχετικά με τη ρύθμιση του αρχείου καταγραφής του SpeedFan ούτως ώστε το plugin να μπορέσει να το αναλύσει σωστά."
+
 msgctxt "#30000"
 msgid "General"
 msgstr "Γενικά"

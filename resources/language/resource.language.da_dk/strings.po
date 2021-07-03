@@ -17,6 +17,14 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 4.6\n"
 
+msgctxt "Addon Summary"
+msgid "Display information from your SpeedFan log."
+msgstr "Vis oplysninger fra din SpeedFan-log."
+
+msgctxt "Addon Description"
+msgid "Parses and displays information from the SpeedFan log. While this plugin works on any platform, SpeedFan only works on Windows, so it is optimally built for people using Kodi on Windows. Please see readme.txt for information on how to configure your SpeedFan log so that the plugin can parse it properly."
+msgstr "Henter og viser information fra SpeedFan log'en. Selvom dette plugin virker på alle platforme, fungerer SpeedFan kun i Windows og er dermed skabt for folk, som kører Kodi på Windows. Se venligst readme.txt for oplysninger om, hvordan du opsætter din SpeedFan log, så plugin'et kan læse den korrekt."
+
 msgctxt "#30000"
 msgid "General"
 msgstr "Generelt"
