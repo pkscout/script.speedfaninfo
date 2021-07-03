@@ -16,6 +16,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgctxt "Addon Summary"
+msgid "Display information from your SpeedFan log."
+msgstr "Ventilátor-sebesség napló megjelenítése"
+
+msgctxt "Addon Description"
+msgid "Parses and displays information from the SpeedFan log. While this plugin works on any platform, SpeedFan only works on Windows, so it is optimally built for people using Kodi on Windows. Please see readme.txt for information on how to configure your SpeedFan log so that the plugin can parse it properly."
+msgstr "Feldolgozza és megjeleníti a ventilátor-sebesség napló adatait. Habár ez a plugin működik az összes platformon, a SpeedFan csak Windowson fut. Ezért ez a plugin elsősorban az Kodi-t Windowson futtató felhasználóknak készült. Annak érdekében, hogy az információkat megfelelően dolgozzuk fel, olvassa el a readme.txt fájlt, hogy SpeedFan naplót megfelelően beállíthassa."
+
 msgctxt "#30000"
 msgid "General"
 msgstr "Általános"
