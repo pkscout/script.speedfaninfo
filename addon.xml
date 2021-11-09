@@ -48,7 +48,7 @@ v.1.2.1
 		<summary lang="ru_RU">Отображает информацию из Вашего журнала SpeedFan.</summary>
 		<summary lang="sk_SK">Zobraziť informácie z Vášho SpeedFan logu.</summary>
 		<summary lang="sv_SE">Visar information från din SpeedFan logg.</summary>
-		<summary lang="zh_CN">显示来源于SpeedFan日志的信息</summary>
+		<summary lang="zh_CN">显示来源于 SpeedFan 日志的信息。</summary>
 		<description lang="af_ZA">Ontleed en vertoon inligting van die SpeedFan Aantekenings. Terwyl hierdie plugin werk op enige platform, SpeedFan werk net op Windows, so dit is optimaal gebou vir mense wat Kodi op Windows gebruik. Sien readme.txt vir inligting oor hoe om jou SpeedFan Aantekenings in te stel sodat die prop dit behoorlik kan ontleed nie.</description>
 		<description lang="bg_BG">Извлича и показва информацията от дневника на SpeedFan. Приставката работи на всички платформи, но самият SpeedFan работи само на Windows, така че приставката е особено полезна за потребителите ползващи Kodi на Windows. Моля, прочетете readme.txt файла за да получите допълнителна информация, за това как как да конфигурирате вашия SpeedFan дневник, така че приставката да може да го анализира правилно</description>
 		<description lang="ca_ES">Analitza i mostra la informació del Registre de Velocitats del Ventilador. Encara que aquest plugin sigui multiplataforma, el Registre de Velocitats del Ventilador només funciona sobre Windows, de manera que està construït òptimament per les persones que utilitzen Kodi sobre Windows. Si et plau, llegeix el fitxer readme.txt per a més informació sobre com configurar el teu Registre de Velocitats del Ventilador i permetre al plugin analitzar els valors correctament.</description>
