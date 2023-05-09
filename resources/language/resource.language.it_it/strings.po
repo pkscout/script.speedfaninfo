@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: XBMC Addons\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2023-05-04 09:58+0000\n"
+"PO-Revision-Date: 2023-05-09 06:24+0000\n"
 "Last-Translator: Massimo Pissarello <mapi68@gmail.com>\n"
 "Language-Team: Italian <https://kodi.weblate.cloud/projects/kodi-add-ons-scripts/script-speedfaninfo/it_it/>\n"
 "Language: it_it\n"
@@ -51,7 +51,7 @@ msgstr "    Trasparenza sfondo"
 
 msgctxt "#30006"
 msgid "Log File Location"
-msgstr "Posizione file registro"
+msgstr "Posizione file di registro"
 
 msgctxt "#30007"
 msgid "Celcius"
@@ -83,7 +83,7 @@ msgstr "    Titolo file di registro"
 
 msgctxt "#30021"
 msgid "    Log File Location"
-msgstr "    Posizione file registro"
+msgstr "    Posizione file di registro"
 
 # empty strings from id 30022 to 30029
 msgctxt "#30030"
