@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: XBMC Addons\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2022-02-25 18:13+0000\n"
-"Last-Translator: Christian Gade <gade@kodi.tv>\n"
+"PO-Revision-Date: 2025-01-05 10:39+0000\n"
+"Last-Translator: Heiko Berner <berner.h@gmail.com>\n"
 "Language-Team: Afrikaans (South Africa) <https://kodi.weblate.cloud/projects/kodi-add-ons-scripts/script-speedfaninfo/af_za/>\n"
 "Language: af_za\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.11\n"
+"X-Generator: Weblate 5.9.2\n"
 
 msgctxt "Addon Summary"
 msgid "Display information from your SpeedFan log."
@@ -47,54 +47,54 @@ msgstr "Gebruik Compact vertoning"
 
 msgctxt "#30005"
 msgid "    Background Transparency"
-msgstr "Agtergrond Deursigtigheid"
+msgstr "    Agtergrond Deursigtigheid"
 
 msgctxt "#30006"
 msgid "Log File Location"
-msgstr ""
+msgstr "Log lêer ligging"
 
 msgctxt "#30007"
 msgid "Celcius"
-msgstr ""
+msgstr "Celsius"
 
 msgctxt "#30008"
 msgid "Fahrenheit"
-msgstr ""
+msgstr "Fahrenheit"
 
 # empty strings from id 30007 to 30009
 msgctxt "#30010"
 msgid " Additional Logs"
-msgstr ""
+msgstr " Addisionele logs"
 
 msgctxt "#30011"
 msgid "Primary Log File Title"
-msgstr ""
+msgstr "Primêre log lêer titel"
 
 msgctxt "#30012"
 msgid "Use Log File 2"
-msgstr ""
+msgstr "Gebruik Log Lêer 2"
 
 msgctxt "#30013"
 msgid "Use Log File 3"
-msgstr ""
+msgstr "Gebruik Log Lêer 3"
 
 # empty strings from id 30014 to 30019
 msgctxt "#30020"
 msgid "    Log File Title"
-msgstr ""
+msgstr "    Log lêer titel"
 
 msgctxt "#30021"
 msgid "    Log File Location"
-msgstr ""
+msgstr "    Log lêer ligging"
 
 # empty strings from id 30022 to 30029
 msgctxt "#30030"
 msgid "Advanced"
-msgstr "Gevorderde"
+msgstr "Gevorderd"
 
 msgctxt "#30031"
 msgid "Set Line Read Size"
-msgstr ""
+msgstr "Stel lyn lees grootte"
 
 msgctxt "#30100"
 msgid "Temperature Information"
@@ -110,15 +110,15 @@ msgstr "Voltage Inligting"
 
 msgctxt "#30103"
 msgid "Log File Error"
-msgstr ""
+msgstr "Log lêer fout"
 
 msgctxt "#30104"
 msgid "No log file found."
-msgstr ""
+msgstr "Geen log lêer gevind nie."
 
 msgctxt "#30105"
 msgid "Other Information"
-msgstr ""
+msgstr "Ander inligting"
 
 msgctxt "#32209"
 msgid "Enable debug logging"
