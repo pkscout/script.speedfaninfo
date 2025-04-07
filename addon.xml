@@ -49,7 +49,7 @@ v.1.2.1
 		<summary lang="pt_BR">Mostrar informações de seu registro SpeedFan.</summary>
 		<summary lang="ru_RU">Отображает информацию из Вашего журнала SpeedFan.</summary>
 		<summary lang="sk_SK">Zobraziť informácie z Vášho SpeedFan logu.</summary>
-		<summary lang="sv_SE">Visar information från din SpeedFan logg.</summary>
+		<summary lang="sv_SE">Visa information från din SpeedFan-logg.</summary>
 		<summary lang="zh_CN">显示来源于 SpeedFan 日志的信息。</summary>
 		<description lang="af_ZA">Ontleed en vertoon inligting van die SpeedFan Aantekenings. Terwyl hierdie plugin werk op enige platform, SpeedFan werk net op Windows, so dit is optimaal gebou vir mense wat Kodi op Windows gebruik. Sien readme.txt vir inligting oor hoe om jou SpeedFan Aantekenings in te stel sodat die prop dit behoorlik kan ontleed nie.</description>
 		<description lang="bg_BG">Извлича и показва информацията от дневника на SpeedFan. Приставката работи на всички платформи, но самият SpeedFan работи само на Windows, така че приставката е особено полезна за потребителите ползващи Kodi на Windows. Моля, прочетете readme.txt файла за да получите допълнителна информация, за това как как да конфигурирате вашия SpeedFan дневник, така че приставката да може да го анализира правилно</description>
@@ -80,7 +80,7 @@ v.1.2.1
 		<description lang="pt_BR">Analisa e apresenta informações do registro SpeedFan. Embora este plugin funcione em qualquer plataforma, SpeedFan só funciona no Windows, então é optimizado para as pessoas que utilizam o Kodi no Windows. Por favor, veja o arquivo readme.txt para obter informações sobre como configurar o registro SpeedFan para que o plugin possa analisá-lo corretamente.</description>
 		<description lang="ru_RU">Извлекает и отображает информацию из журнала SpeedFan. Данный плагин работает на всех платформах, но сам SpeedFan есть только для Windows, поэтому данный плагин прежде всего пригодится пользователям Windows. Пожалуйста, ознакомьтесь с файлом readme.txt для более подробной информации о конфигурации SpeedFan и настройках лога, чтобы данный плагин смог правильно его распарсить.</description>
 		<description lang="sk_SK">Rozoberá a zobrazuje informácie zo SpeedFan logu. Síce tento doplnok funguje na všetkých platformách, SpeedFan funguje len na Windows, a preto je tento doplnok určený užívateľom Kodi na Windows. Prosím prečítajte readme.txt aby ste sa dozvedeli ako nastaviť SpeedFan log tak, aby ho tento doplnok vedel správne rozoberať.</description>
-		<description lang="sv_SE">Analyserar och visar information från SpeedFan loggen. Trots att detta tillägg fungerar på alla plattformar, fungerar SpeedFan endast på Windows, så det är optimerat för folk som använder Kodi på Windows. Läs readme.txt för mer information hur du konfigurerar din SpeedFan logg så att tillägget kan analysera det riktigt.</description>
+		<description lang="sv_SE">Tolkar och visar information från SpeedFan-loggen. Detta tillägg fungerar på alla plattformar, men SpeedFan fungerar bara på Windows, så det är optimalt byggt för personer som använder Kodi på Windows. Se readme.txt för information om hur du konfigurerar din SpeedFan-logg så att tillägget kan tolka den korrekt.</description>
 		<description lang="zh_CN">分析和显示从SpeedFan日志获取的信息。由于SpeedFan只有Windows版，因此本插件仅用于运行在Windows平台的Kodi。请阅读readme.txt中关于如何配置SpeedFan日志以使本插件能正确分析处理的相关说明。</description>
 	</extension>
 </addon>
