@@ -5,120 +5,121 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XBMC Addons\n"
-"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: XBMC Translation Team\n"
-"Language-Team: Bosnian (http://www.transifex.com/projects/p/xbmc-addons/language/bs/)\n"
-"Language: bs\n"
+"PO-Revision-Date: 2025-08-28 22:31+0000\n"
+"Last-Translator: SecularSteve <fairfull.playing@gmail.com>\n"
+"Language-Team: Bosnian (Bosnia and Herzegovina) <https://kodi.weblate.cloud/projects/kodi-add-ons-scripts/script-speedfaninfo/bs_ba/>\n"
+"Language: bs_ba\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.13\n"
 
 msgctxt "Addon Summary"
 msgid "Display information from your SpeedFan log."
-msgstr ""
+msgstr "Prikažite informacije iz vašeg SpeedFan dnevnika."
 
 msgctxt "Addon Description"
 msgid "Parses and displays information from the SpeedFan log. While this plugin works on any platform, SpeedFan only works on Windows, so it is optimally built for people using Kodi on Windows. Please see readme.txt for information on how to configure your SpeedFan log so that the plugin can parse it properly."
-msgstr ""
+msgstr "Analizira i prikazuje informacije iz SpeedFan loga. Iako ovaj dodatak radi na bilo kojoj platformi, SpeedFan radi samo na Windowsu, tako da je optimalno napravljen za ljude koji koriste Kodi na Windowsu. Molimo pogledajte readme.txt datoteku za informacije o tome kako konfigurirati SpeedFan log kako bi ga dodatak mogao ispravno analizirati."
 
 msgctxt "#30000"
 msgid "General"
-msgstr "Opšte"
+msgstr "Općenito"
 
 msgctxt "#30001"
 msgid "Enable Verbose Logging"
-msgstr ""
+msgstr "Omogući detaljno evidentiranje"
 
 msgctxt "#30002"
 msgid "Log Temperature Scale"
-msgstr ""
+msgstr "Log temperaturna skala"
 
 msgctxt "#30003"
 msgid "Window Update Interval (in seconds)"
-msgstr ""
+msgstr "Interval ažuriranja prozora (u sekundama)"
 
 msgctxt "#30004"
 msgid "Use Compact Display"
-msgstr ""
+msgstr "Koristi kompaktni prikaz"
 
 msgctxt "#30005"
 msgid "    Background Transparency"
-msgstr ""
+msgstr "    Prozirnost pozadine"
 
 msgctxt "#30006"
 msgid "Log File Location"
-msgstr ""
+msgstr "Lokacija datoteke zapisnika"
 
 msgctxt "#30007"
 msgid "Celcius"
-msgstr ""
+msgstr "Celzijus"
 
 msgctxt "#30008"
 msgid "Fahrenheit"
-msgstr ""
+msgstr "Fahrenheit"
 
 # empty strings from id 30007 to 30009
 msgctxt "#30010"
 msgid " Additional Logs"
-msgstr ""
+msgstr " Dodatni zapisci"
 
 msgctxt "#30011"
 msgid "Primary Log File Title"
-msgstr ""
+msgstr "Naslov primarne datoteke dnevnika"
 
 msgctxt "#30012"
 msgid "Use Log File 2"
-msgstr ""
+msgstr "Koristi datoteku dnevnika 2"
 
 msgctxt "#30013"
 msgid "Use Log File 3"
-msgstr ""
+msgstr "Koristi datoteku dnevnika 3"
 
 # empty strings from id 30014 to 30019
 msgctxt "#30020"
 msgid "    Log File Title"
-msgstr ""
+msgstr "    Naslov datoteke zapisnika"
 
 msgctxt "#30021"
 msgid "    Log File Location"
-msgstr ""
+msgstr "    Lokacija datoteke zapisnika"
 
 # empty strings from id 30022 to 30029
 msgctxt "#30030"
 msgid "Advanced"
-msgstr ""
+msgstr "Napredno"
 
 msgctxt "#30031"
 msgid "Set Line Read Size"
-msgstr ""
+msgstr "Postavi veličinu čitanja linije"
 
 # empty strings from 30032 to 30099
 msgctxt "#30100"
 msgid "Temperature Information"
-msgstr ""
+msgstr "Informacije o temperaturi"
 
 msgctxt "#30101"
 msgid "Fan Speed Information"
-msgstr ""
+msgstr "Informacije o brzini ventilatora"
 
 msgctxt "#30102"
 msgid "Voltage Information"
-msgstr ""
+msgstr "Informacije o naponu"
 
 msgctxt "#30103"
 msgid "Log File Error"
-msgstr ""
+msgstr "Greška datoteke zapisnika"
 
 msgctxt "#30104"
 msgid "No log file found."
-msgstr ""
+msgstr "Nije pronađena datoteka zapisnika."
 
 msgctxt "#30105"
 msgid "Other Information"
-msgstr ""
+msgstr "Ostale informacije"
 
 msgctxt "#32209"
 msgid "Enable debug logging"
