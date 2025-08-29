@@ -22,6 +22,7 @@ v.1.2.1
 		<source>https://github.com/pkscout/script.speedfaninfo</source>
 		<summary lang="af_ZA">Vertoon inligting van jou SpeedFan Aantekenings.</summary>
 		<summary lang="bg_BG">Показва информация от вашия SpeedFan дневник.</summary>
+		<summary lang="bs_BA">Prikažite informacije iz vašeg SpeedFan dnevnika.</summary>
 		<summary lang="ca_ES">Mostra la informació del Registre de Velocitats del Ventilador.</summary>
 		<summary lang="da_DK">Vis oplysninger fra din SpeedFan-log.</summary>
 		<summary lang="de_DE">Informationen aus dem SpeedFan-Protokoll anzeigen.</summary>
@@ -53,6 +54,7 @@ v.1.2.1
 		<summary lang="zh_CN">显示来源于 SpeedFan 日志的信息。</summary>
 		<description lang="af_ZA">Ontleed en vertoon inligting van die SpeedFan Aantekenings. Terwyl hierdie plugin werk op enige platform, SpeedFan werk net op Windows, so dit is optimaal gebou vir mense wat Kodi op Windows gebruik. Sien readme.txt vir inligting oor hoe om jou SpeedFan Aantekenings in te stel sodat die prop dit behoorlik kan ontleed nie.</description>
 		<description lang="bg_BG">Извлича и показва информацията от дневника на SpeedFan. Приставката работи на всички платформи, но самият SpeedFan работи само на Windows, така че приставката е особено полезна за потребителите ползващи Kodi на Windows. Моля, прочетете readme.txt файла за да получите допълнителна информация, за това как как да конфигурирате вашия SpeedFan дневник, така че приставката да може да го анализира правилно</description>
+		<description lang="bs_BA">Analizira i prikazuje informacije iz SpeedFan loga. Iako ovaj dodatak radi na bilo kojoj platformi, SpeedFan radi samo na Windowsu, tako da je optimalno napravljen za ljude koji koriste Kodi na Windowsu. Molimo pogledajte readme.txt datoteku za informacije o tome kako konfigurirati SpeedFan log kako bi ga dodatak mogao ispravno analizirati.</description>
 		<description lang="ca_ES">Analitza i mostra la informació del Registre de Velocitats del Ventilador. Encara que aquest plugin sigui multiplataforma, el Registre de Velocitats del Ventilador només funciona sobre Windows, de manera que està construït òptimament per les persones que utilitzen Kodi sobre Windows. Si et plau, llegeix el fitxer readme.txt per a més informació sobre com configurar el teu Registre de Velocitats del Ventilador i permetre al plugin analitzar els valors correctament.</description>
 		<description lang="da_DK">Henter og viser information fra SpeedFan log&apos;en. Selvom dette plugin virker på alle platforme, fungerer SpeedFan kun i Windows og er dermed skabt for folk, som kører Kodi på Windows. Se venligst readme.txt for oplysninger om, hvordan du opsætter din SpeedFan log, så plugin&apos;et kan læse den korrekt.</description>
 		<description lang="de_DE">Analysiert und zeigt Informationen vom SpeedFan-Protokoll. Während dieses Plugin auf allen Plattformen funktioniert, läuft SpeedFan nur unter Windows, also optimiert für diejenigen, die Kodi unter Windows nutzen. Bitte die readme.txt für Informationen lesen, wie SpeedFan konfiguriert werden muss, damit das Plugin das Protokoll korrekt analysieren kann.</description>
