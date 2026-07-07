@@ -7,23 +7,23 @@ msgstr ""
 "Project-Id-Version: XBMC Addons\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2022-03-09 14:05+0000\n"
-"Last-Translator: Christian Gade <gade@kodi.tv>\n"
+"PO-Revision-Date: 2026-07-07 08:31+0000\n"
+"Last-Translator: Michal Várady <miko.vaji@gmail.com>\n"
 "Language-Team: Czech <https://kodi.weblate.cloud/projects/kodi-add-ons-scripts/script-speedfaninfo/cs_cz/>\n"
 "Language: cs_cz\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 4.11.2\n"
+"X-Generator: Weblate 2026.7\n"
 
 msgctxt "Addon Summary"
 msgid "Display information from your SpeedFan log."
-msgstr ""
+msgstr "Zobrazí informace z protokolu SpeedFan."
 
 msgctxt "Addon Description"
 msgid "Parses and displays information from the SpeedFan log. While this plugin works on any platform, SpeedFan only works on Windows, so it is optimally built for people using Kodi on Windows. Please see readme.txt for information on how to configure your SpeedFan log so that the plugin can parse it properly."
-msgstr ""
+msgstr "Analyzuje a zobrazuje informace z protokolu SpeedFan. Tento doplněk funguje na libovolné platformě, SpeedFan však funguje pouze ve Windows, takže se nejlépe hodí pro uživatele Kodi ve Windows. Informace o konfiguraci protokolu SpeedFan tak, aby ho doplněk dokázal správně analyzovat, najdete v souboru readme.txt."
 
 msgctxt "#30000"
 msgid "General"
@@ -31,96 +31,96 @@ msgstr "Obecné"
 
 msgctxt "#30001"
 msgid "Enable Verbose Logging"
-msgstr "Povolit podrobné ladění"
+msgstr "Povolit podrobné protokolování"
 
 msgctxt "#30002"
 msgid "Log Temperature Scale"
-msgstr ""
+msgstr "Jednotka teploty v protokolu"
 
 msgctxt "#30003"
 msgid "Window Update Interval (in seconds)"
-msgstr ""
+msgstr "Interval aktualizace okna (v sekundách)"
 
 msgctxt "#30004"
 msgid "Use Compact Display"
-msgstr ""
+msgstr "Použít kompaktní zobrazení"
 
 msgctxt "#30005"
 msgid "    Background Transparency"
-msgstr ""
+msgstr "    Průhlednost pozadí"
 
 msgctxt "#30006"
 msgid "Log File Location"
-msgstr ""
+msgstr "Umístění souboru protokolu"
 
 msgctxt "#30007"
 msgid "Celcius"
-msgstr ""
+msgstr "Celsius"
 
 msgctxt "#30008"
 msgid "Fahrenheit"
-msgstr ""
+msgstr "Fahrenheit"
 
 # empty strings from id 30007 to 30009
 msgctxt "#30010"
 msgid " Additional Logs"
-msgstr ""
+msgstr " Další protokoly"
 
 msgctxt "#30011"
 msgid "Primary Log File Title"
-msgstr ""
+msgstr "Název hlavního protokolu"
 
 msgctxt "#30012"
 msgid "Use Log File 2"
-msgstr ""
+msgstr "Použít soubor protokolu 2"
 
 msgctxt "#30013"
 msgid "Use Log File 3"
-msgstr ""
+msgstr "Použít soubor protokolu 3"
 
 # empty strings from id 30014 to 30019
 msgctxt "#30020"
 msgid "    Log File Title"
-msgstr ""
+msgstr "    Název protokolu"
 
 msgctxt "#30021"
 msgid "    Log File Location"
-msgstr ""
+msgstr "    Umístění souboru protokolu"
 
 # empty strings from id 30022 to 30029
 msgctxt "#30030"
 msgid "Advanced"
-msgstr "Rozšířený"
+msgstr "Pokročilé"
 
 msgctxt "#30031"
 msgid "Set Line Read Size"
-msgstr ""
+msgstr "Nastavit počet načítaných řádků"
 
 # empty strings from 30032 to 30099
 msgctxt "#30100"
 msgid "Temperature Information"
-msgstr ""
+msgstr "Informace o teplotách"
 
 msgctxt "#30101"
 msgid "Fan Speed Information"
-msgstr ""
+msgstr "Informace o otáčkách ventilátorů"
 
 msgctxt "#30102"
 msgid "Voltage Information"
-msgstr ""
+msgstr "Informace o napětí"
 
 msgctxt "#30103"
 msgid "Log File Error"
-msgstr ""
+msgstr "Chyba souboru protokolu"
 
 msgctxt "#30104"
 msgid "No log file found."
-msgstr ""
+msgstr "Nebyl nalezen žádný soubor protokolu."
 
 msgctxt "#30105"
 msgid "Other Information"
-msgstr ""
+msgstr "Další informace"
 
 msgctxt "#32209"
 msgid "Enable debug logging"
-msgstr "Povolit zaznamenávání ladících informací"
+msgstr "Povolit ladicí protokolování"
